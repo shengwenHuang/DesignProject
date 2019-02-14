@@ -1,0 +1,40 @@
+<h1>Question</h1>
+<!-- <form action="http://localhost:8081/process_post"></form> -->
+
+<div class="card">
+  <div class="card-body">
+    <h5>New Question</h5>
+    <input type="text" class="form-control" placeholder="Add new question here." [(ngModel)]="new_question"
+    (keyup.enter)="addQuestion()">
+    <label>
+      Info to Doun and Alice. You can enter a new question my wrting and pressing enter. The delete button works.
+      I still need to do the add parent question stuff, which I will do that later.
+    </label>
+
+
+    <!-- <button class="btn btn-primary" >Add Question</button> -->
+  </div>
+</div>
+
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Number</th>
+      <th>Question</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tr *ngFor="let q of q_obj">
+    <td>{{q.questionID}}</td>
+    <td>{{q.question}}</td>
+    <td>
+      <button class="btn btn-danger" (click)="delete(q)">Delete</button>
+    </td>
+    <td>
+      <button class="btn btn-success" (click)="edit()">Edit</button>
+    </td>
+  </tr>
+</table>
