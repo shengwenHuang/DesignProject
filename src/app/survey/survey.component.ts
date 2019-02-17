@@ -17,7 +17,9 @@ export class SurveyComponent implements OnInit {
   ngOnInit() {
     this.new_question = '';
     this.apiService.getQuestionApi()
-    .subscribe(data => this.sort_questions(data));    
+    .subscribe(
+      data => this.sort_questions(data),
+      err => console.log(err));    
   }
 
   sort_questions(data: object) {
@@ -47,18 +49,19 @@ export class SurveyComponent implements OnInit {
       question: this.new_question
     })
     .subscribe(
-     (data) => {this.q_obj.push(data)},
-     (error)=>{console.log('error during post is ', error)
+     data => {this.q_obj.push(data)},
+     error =>{console.log('error during post is ', error)
     }
     );
 
   }
 
-  // delete(question: object): void {
-  //   this.apiService.deleteQuestionApi(question.questionID)
-  //   .subscribe((data) => this.q_obj.splice(this.q_obj.indexOf(question) , 1))    
-
-  // }
+  delete(question: any): void {
+    this.apiService.deleteQuestionApi(question.questionID)
+    .subscribe(
+      data => this.q_obj.splice(this.q_obj.indexOf(question) , 1),
+      err => console.log(err))    
+  }
 
   edit(): void {
     console.log("dsafasdfasdf");
