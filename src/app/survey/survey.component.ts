@@ -15,32 +15,13 @@ export class SurveyComponent implements OnInit {
 
 
   ngOnInit() {
+    
     this.new_question = '';
     this.apiService.getQuestionApi()
     .subscribe(
-      data => this.sort_questions(data),
+      data => this.q_obj = data,
       err => console.log(err));    
   }
-
-  sort_questions(data: object) {
-    const temp: any = data;
-    let location = {}
-
-    for (let q of temp) {
-      if (q.parent == 0) {
-
-        q.parent = [];
-        this.q_obj.push(q);
-        location[q.questionID] = this.q_obj.indexOf(q)
-
-      } else {
-        this.q_obj[location[q.parent]].parent.push(q);
-      }
-    }
-    console.log(this.q_obj)
-  }
-
-  
 
   addQuestion(): void {    
     this.apiService.addQuestionDbApi({

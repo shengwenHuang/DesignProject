@@ -2,14 +2,24 @@ h1 {
     text-align: center;
 }
 
-form{
-    label {
-        font-size: 20px;
-    }
-    button {
-        background: burlywood;
-        border: none;
-        font-size: 30px;
-    }
-}
+
+.big-banner {
+    background: url("../../assets/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+
+// form{
+//     label {
+//         font-size: 20px;
+//     }
+//     button {
+//         background: burlywood;
+//         border: none;
+//         font-size: 30px;
+//     }
+// }
 

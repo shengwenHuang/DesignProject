@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 export class ApiService {
 
   private loginUrl: string = 'http://localhost:3000/login';
+  private registerUrl: string = 'http://localhost:3000/register'
+  private removeUserUrl: string = 'http://localhost:3000/remove_user'
+  private getUserUrl: string = 'http://localhost:3000/get_user'
 
   private getapiUrl: string = 'http://localhost:3000/questions';
   private addapiUrl: string = 'http://localhost:3000/create';
@@ -25,21 +28,28 @@ export class ApiService {
 
   addQuestionDbApi(obj: object) {
 
-    return this.http.post(this.addapiUrl, obj, {
-      // headers: new HttpHeaders({
-      //   'Content-Type': 'application/json'
-      // }),
-      
-    });
+    return this.http.post(this.addapiUrl, obj);
   }
 
   deleteQuestionApi(id: number) {
     return this.http.get(`${this.deleteUrl}${id}`);
   }
 
+  get_user() {
+    return this.http.get(this.getUserUrl)
+  } 
   login(user: object) {
     return this.http.post<any>(this.loginUrl, user);
   }
+
+  register(user: object) {
+    return this.http.post(this.registerUrl, user);
+  }
+
+  remove_user(user: object) {
+    return this.http.post(this.removeUserUrl, user);
+  }
+
 
   logout(): void {
     localStorage.removeItem('token');
