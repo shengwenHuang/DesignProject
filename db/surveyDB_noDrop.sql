@@ -37,35 +37,46 @@ INSERT INTO `answer` (`responseID`, `patientID`, `questionID`, `answer`) VALUES
 (1, 2, 7, 'warfarin'),
 (1, 2, 8, 'yes'),
 (1, 2, 9, 'Metformin'),
-(1, 2, 10, 'take medicine'),
-(1, 2, 11, 'no'),
-(1, 2, 12, 'no'),
-(1, 2, 13, 'asthma'),
+(1, 2, 10, 'yes'),
+(1, 2, 11, 'yes'),
+(1, 2, 12, 'ACE inhibitors'),
+(1, 2, 13, 'yes'),
 (1, 2, 14, 'no'),
 (1, 2, 15, 'yes'),
-(1, 2, 16, 'kidney disease'),
+(1, 2, 16, 'yes'),
 (1, 2, 17, 'no'),
-(1, 2, 18, 'no'),
+(1, 2, 18, 'yes'),
 (1, 2, 19, 'no'),
 (1, 2, 20, 'no'),
 (1, 2, 21, 'no'),
 (1, 2, 22, 'yes'),
-(1, 2, 23, 'MG'),
+(1, 2, 23, 'no'),
 (1, 2, 24, 'yes'),
-(1, 2, 25, 'lupus'),
-(1, 2, 26, 'yes'),
-(1, 2, 27, 'seizures'),
+(1, 2, 25, 'no'),
+(1, 2, 26, 'no'),
+(1, 2, 27, 'no'),
 (1, 2, 28, 'no'),
 (1, 2, 29, 'no'),
-(1, 2, 30, 'HRT'),
+(1, 2, 30, 'no'),
 (1, 2, 31, 'no'),
-(1, 2, 32, 'no'),
-(1, 2, 33, 'no'),
-(1, 2, 34, 'no'),
-(1, 2, 35, 'no'),
-(1, 2, 36, 'no'),
-(1, 2, 37, ''),
-(1, 2, 38, '');
+(1, 2, 32, 'yes'),
+(1, 2, 33, 'MG'),
+(1, 2, 34, 'yes'),
+(1, 2, 35, 'lupus'),
+(1, 2, 36, 'yes'),
+(1, 2, 37, 'seizures'),
+(1, 2, 38, 'no'),
+(1, 2, 39, 'no'),
+(1, 2, 40, 'no'),
+(1, 2, 41, 'no'),
+(1, 2, 42, 'no'),
+(1, 2, 43, 'no'),
+(1, 2, 44, 'no'),
+(1, 2, 45, 'no'),
+(1, 2, 46, 'no'),
+(1, 2, 47, 'no'),
+(1, 2, 48, ''),
+(1, 2, 49, '');
 
 -- --------------------------------------------------------
 
@@ -142,12 +153,12 @@ INSERT INTO `feedbackResponse` (`feedbackID`, `patientID`, `startTime`, `complet
 
 CREATE TABLE `nhsUsers` (
   `userID` int(11) NOT NULL,
-  `staffNo` text NOT NULL,
+  `staffNo` varchar(100) NOT NULL,
   `hashedPassword` varchar(100) NOT NULL,
   `phone` varchar(255) NOT NULL,
-  `email` text NOT NULL,
-  `firstname` text NOT NULL,
-  `lastname` text NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
   `userRoleID` int(11) NOT NULL,
   `statusID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -178,9 +189,9 @@ CREATE TABLE `patient` (
   `patientID` int(11) NOT NULL,
   `NHSno` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
-  `email` text NOT NULL,
-  `firstname` text NOT NULL,
-  `lastname` text NOT NULL
+  `email` varchar(255) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -328,44 +339,55 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`questionID`, `type`, `question`, `parentQuestion`, `pos`, `editTime`) VALUES
-(1, 3, 'Allergies / Adverse reactions to food or medication?', 0, 1, '2019-02-02 21:07:36'),
-(2, 1, 'Allergies', 1, 2, '2019-01-29 09:51:47'),
-(3, 1, 'Adverse reaction', 1, 3, '2019-02-10 18:15:55'),
-(4, 1, 'Other', 1, 4, '2019-02-03 01:32:20'),
-(5, 3, 'Have you had a pre-operative appointment in the last 6 months?', 0, 5, '2019-01-01 17:38:11'),
-(6, 3, 'Do you take any blood thinning medication?', 0, 6, '2019-02-16 10:02:31'),
+(1, 1, 'Do you have allergies / adverse reactions to food or medication?', 0, 1, '2019-02-02 21:07:36'),
+(2, 2, 'Allergies', 1, 2, '2019-01-29 09:51:47'),
+(3, 2, 'Adverse reaction', 1, 3, '2019-02-10 18:15:55'),
+(4, 2, 'Other', 1, 4, '2019-02-03 01:32:20'),
+(5, 1, 'Have you had a pre-operative appointment in the last 6 months?', 0, 5, '2019-01-01 17:38:11'),
+(6, 1, 'Do you take any blood thinning medication?', 0, 6, '2019-02-16 10:02:31'),
 (7, 2, 'medication', 6, 7, '2019-01-20 19:41:44'),
-(8, 3, 'Do you have diabetes, which requires medication?', 0, 8, '2019-01-26 04:40:59'),
+(8, 1, 'Do you have diabetes, which requires medication?', 0, 8, '2019-01-26 04:40:59'),
 (9, 2, 'medication', 8, 9, '2019-02-04 22:10:05'),
-(10, 4, 'Do you have high blood pressure OR take medication for high blood pressure?', 0, 10, '2019-02-09 20:18:40'),
-(11, 4, 'Do you suffer from angina or chest pain?', 0, 11, '2019-02-10 17:10:20'),
-(12, 3, 'Do you have a pacemaker?', 0, 12, '2019-01-29 15:21:23'),
-(13, 4, 'Do you have asthma or COPD? ', 0, 13, '2019-01-23 18:37:43'),
-(14, 1, 'If so, do you take anything other than standard inhalers?', 13, 14, '2019-01-16 05:33:32'),
-(15, 3, 'Do you have sleep apnoea?', 0, 15, '2019-01-24 10:45:14'),
-(16, 4, 'Have you ever had kidney disease or kidney failure?', 0, 16, '2019-02-03 22:37:29'),
-(17, 4, 'Do you have any thyroid issues or take medication for your thyroid?', 0, 17, '2019-02-10 23:04:48'),
-(18, 4, 'Have you ever had a clot in your leg or lungs?', 0, 18, '2019-01-13 06:43:07'),
-(19, 3, 'Do you or a family relative have a history of a bleeding OR clotting disorder?', 0, 19, '2019-01-03 10:41:35'),
-(20, 4, 'Have you ever had a TIA or Stroke?', 0, 20, '2019-01-22 01:44:10'),
-(21, 3, 'Do you have epilepsy? ', 0, 21, '2019-01-17 23:52:32'),
-(22, 3, 'Do you have any diseases of the nerves or muscles? (eg MS, Myasthenia Gravis)', 0, 22, '2019-02-08 06:42:32'),
-(23, 2, 'specify', 22, 23, '2019-02-04 19:36:45'),
-(24, 3, 'Do you suffer with any immunology disorders?', 0, 24, '2019-01-12 16:58:26'),
-(25, 2, 'specify', 24, 25, '2019-02-01 11:51:11'),
-(26, 3, 'Have you or a blood relative ever had a serious problem with an anaesthetic? (not including nausea and vomiting)', 0, 26, '2019-02-16 05:43:06'),
-(27, 2, 'specify', 26, 27, '2019-01-06 09:17:47'),
-(28, 3, 'Do you regularly drink more than 30 units of alcohol per week?', 0, 28, '2019-02-05 17:07:41'),
-(29, 4, 'Are you a SMOKER/Vaper?', 0, 29, '2019-01-17 12:41:43'),
-(30, 4, 'Do you take HRT or the Oral Contraceptive Pill?', 0, 30, '2019-01-15 22:39:27'),
-(31, 3, 'Would you struggle to manage 2 flights of steps without stopping?', 0, 31, '2019-02-09 06:41:08'),
-(32, 3, 'During the last 12 months have you lived abroad for more than 3 months?', 0, 32, '2019-01-19 14:22:43'),
-(33, 3, 'During the last 12 months have you stayed in hospital overnight outside the uk?', 0, 33, '2019-02-16 17:29:51'),
-(34, 3, 'During the last 12 month have you stayed in a uk hospital overnight, excluding MPH, Yeovil and Somerset community ', 0, 34, '2019-01-02 02:39:35'),
-(35, 3, 'Have you ever been in a household or had ward contact of a known case of Carbapenemase Producing Enterobacteriaceae (CPE)', 0, 35, '2019-02-15 19:01:38'),
-(36, 3, 'Have you ever been colonised or had an infection with CPE bacteria?', 0, 36, '2019-02-10 17:09:21'),
-(37, 2, 'Is there any other information you would like to provide?', 0, 37, '2019-01-11 01:05:45'),
-(38, 2, 'Please list your regular medication (not mentioned previously).', 0, 38, '2019-01-11 20:43:18');
+(10, 1, 'Do you have high blood pressure?', 0, 10, '2019-02-09 20:18:40'),
+(11, 1, 'Do you take medication for high blood pressure?', 10, 11, '2019-02-09 20:18:40'),
+(12, 2, 'medication', 11, 12, '2019-02-09 20:18:40'),
+(13, 1, 'Do you suffer from angina?', 0, 13, '2019-02-10 17:10:20'),
+(14, 1, 'Do you suffer from chest pain?', 0, 14, '2019-02-10 17:10:20'),
+(15, 1, 'Do you have a pacemaker?', 0, 15, '2019-01-29 15:21:23'),
+(16, 1, 'Do you have asthma? ', 0, 16, '2019-01-23 18:37:43'),
+(17, 2, 'Do you take anything other than standard inhalers?', 16, 17, '2019-01-16 05:33:32'),
+(18, 1, 'Do you have COPD? ', 0, 18, '2019-01-23 18:37:43'),
+(19, 2, 'Do you take anything other than standard inhalers?', 18, 19, '2019-01-16 05:33:32'),
+(20, 1, 'Do you have sleep apnoea?', 0, 20, '2019-01-24 10:45:14'),
+(21, 1, 'Have you ever had kidney disease?', 0, 21, '2019-02-03 22:37:29'),
+(22, 1, 'Have you ever had kidney failure?', 0, 22, '2019-02-03 22:37:29'),
+(23, 1, 'Do you have any thyroid issues?', 0, 23, '2019-02-10 23:04:48'),
+(24, 2, 'Do you take medication for your thyroid?', 23, 24, '2019-02-10 23:04:48'),
+(25, 1, 'Have you ever had a clot in your legs?', 0, 25, '2019-01-13 06:43:07'),
+(26, 1, 'Have you ever had a clot in your lungs?', 0, 26, '2019-01-13 06:43:07'),
+(27, 1, 'Do you or a family relative have a history of a bleeding disorder?', 0, 27, '2019-01-03 10:41:35'),
+(28, 1, 'Do you or a family relative have a history of a clotting disorder?', 0, 28, '2019-01-03 10:41:35'),
+(29, 1, 'Have you ever had a TIA?', 0, 29, '2019-01-22 01:44:10'),
+(30, 1, 'Have you ever had a Stroke?', 0, 30, '2019-01-22 01:44:10'),
+(31, 1, 'Do you have epilepsy? ', 0, 31, '2019-01-17 23:52:32'),
+(32, 1, 'Do you have any diseases of the nerves or muscles? (eg MS, Myasthenia Gravis)', 0, 32, '2019-02-08 06:42:32'),
+(33, 2, 'specify', 32, 33, '2019-02-04 19:36:45'),
+(34, 1, 'Do you suffer with any immunology disorders?', 0, 34, '2019-01-12 16:58:26'),
+(35, 2, 'specify', 34, 35, '2019-02-01 11:51:11'),
+(36, 1, 'Have you or a blood relative ever had a serious problem with an anaesthetic? (not including nausea and vomiting)', 0, 36, '2019-02-16 05:43:06'),
+(37, 2, 'specify', 36, 37, '2019-01-06 09:17:47'),
+(38, 1, 'Do you regularly drink more than 30 units of alcohol per week?', 0, 38, '2019-02-05 17:07:41'),
+(39, 1, 'Are you a SMOKER/Vaper?', 0, 39, '2019-01-17 12:41:43'),
+(40, 1, 'Do you take HRT?', 0, 40, '2019-01-15 22:39:27'),
+(41, 1, 'Do you take the Oral Contraceptive Pill?', 0, 41, '2019-01-15 22:39:27'),
+(42, 1, 'Would you struggle to manage 2 flights of steps without stopping?', 0, 42, '2019-02-09 06:41:08'),
+(43, 1, 'During the last 12 months have you lived abroad for more than 3 months?', 0, 43, '2019-01-19 14:22:43'),
+(44, 1, 'During the last 12 months have you stayed in hospital overnight outside the uk?', 0, 44, '2019-02-16 17:29:51'),
+(45, 1, 'During the last 12 month have you stayed in a uk hospital overnight, excluding MPH, Yeovil and Somerset community ', 0, 45, '2019-01-02 02:39:35'),
+(46, 1, 'Have you ever been in a household or had ward contact of a known case of Carbapenemase Producing Enterobacteriaceae (CPE)', 0, 46, '2019-02-15 19:01:38'),
+(47, 1, 'Have you ever been colonised or had an infection with CPE bacteria?', 0, 47, '2019-02-10 17:09:21'),
+(48, 2, 'Is there any other information you would like to provide?', 0, 48, '2019-01-11 01:05:45'),
+(49, 2, 'Please list your regular medication (not mentioned previously).', 0, 49, '2019-01-11 20:43:18');
 
 -- --------------------------------------------------------
 
@@ -383,10 +405,8 @@ CREATE TABLE `questionType` (
 --
 
 INSERT INTO `questionType` (`typeID`, `type`) VALUES
-(1, 'drop down'),
-(2, 'free text'),
-(3, 'yes/no'),
-(4, 'multi');
+(1, 'yes/no'),
+(2, 'free text');
 
 -- --------------------------------------------------------
 
@@ -519,6 +539,7 @@ ALTER TABLE `feedbackResponse`
 --
 ALTER TABLE `nhsUsers`
   ADD PRIMARY KEY (`userID`),
+  ADD UNIQUE KEY `staffNo` (`staffNo`),
   ADD KEY `groupID` (`statusID`),
   ADD KEY `userRoleID` (`userRoleID`);
 
@@ -620,7 +641,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `questionType`
