@@ -1,6 +1,6 @@
 <div class="card" *ngFor="let user of users">
   <div class="card-header">
-    Username: {{user.username}}
+    {{user.firstname}} {{user.lastname}}
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{$user.username}" aria-expanded="false" aria-controls="{$user.username}">
       More Detail
     </button>
@@ -33,7 +33,7 @@
     
             <tr>
               <td>Phone</td>
-              <td>{{user.email}}</td>
+              <td>{{user.phone}}</td>
             </tr>  
                 
           </table>

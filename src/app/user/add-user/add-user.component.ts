@@ -18,7 +18,7 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.fb.group({
 
-      username: ['', Validators.required],
+      staff_no: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirm_password: ['', Validators.required],
       firstname: ['', Validators.required],

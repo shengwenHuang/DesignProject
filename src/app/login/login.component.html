@@ -10,8 +10,8 @@
            
           <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-group">
-              <label>Username: </label>
-              <input type="text" formControlName="username" class="form-control">
+              <label>Staff Number: </label>
+              <input type="number" formControlName="staffNo" class="form-control">
               <!-- <div *ngIf="f_error.username.error.required">Username is required</div> -->
             </div>
             <div class="form-group">

@@ -18,7 +18,7 @@ export class RemoveUserComponent implements OnInit {
 
   ngOnInit() {
     this.removeForm = this.fb.group({
-      username: ['', Validators.required],
+      staffNo: ['', Validators.required],
     })
   }
 
