@@ -6,14 +6,15 @@ import { LoginComponent } from './login/login.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SurveyComponent } from './survey/survey.component';
 import { UserComponent } from './user/user.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'home', component: HomeComponent},
-  {path: 'patient', component: PatientComponent},
-  {path: 'feedback', component: FeedbackComponent},
-  {path: 'survey', component: SurveyComponent},
-  {path: 'user', component: UserComponent},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'patient', component: PatientComponent, canActivate: [AuthGuard]},
+  {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuard]},
+  {path: 'survey', component: SurveyComponent, canActivate:[AuthGuard]},
+  {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
 
   // This is to redirect to login screen
   {path: '**', redirectTo:''}
