@@ -1,9 +1,17 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/paper-kit.css" media="screen" />
+  <!--     Fonts and icons     -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
 <div class="card" *ngFor="let user of users">
   <div class="card-header">
     {{user.firstname}} {{user.lastname}}
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{$user.username}" aria-expanded="false" aria-controls="{$user.username}">
-      More Detail
+    <button class="btn btn-primary btn-fill btn-sm" data-toggle="collapse" data-target="#{$user.username}" aria-expanded="false" aria-controls="{$user.username}">
+      Show Detail
     </button>
+    
   </div>
 
   <div class="collapse" id="{$user.username}">

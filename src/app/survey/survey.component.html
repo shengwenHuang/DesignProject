@@ -1,14 +1,19 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/paper-kit.css" media="screen" />
+  <!--     Fonts and icons     -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+</head>
 <h1>Question</h1>
 
 <div class="container add-question">
   <div class="card">
     <div class="card-body">
       <h5>New Question</h5>
-      <input type="text" class="form-control" placeholder="Add new question here." [(ngModel)]="new_question"
-      (keyup.enter)="addQuestion()"> 
-  
+      <input type="text" value="" placeholder="New Question..." class="form-control" [(ngModel)]="new_question"
+      (keyup.enter)="addQuestion()"/>
       <div style="padding-top: 10px">
-        <button class="btn btn-primary" (click)="addQuestion()" >Add Question</button>
+        <button class="btn btn-primary btn-fill"  (click)="addQuestion()" >Add Question</button>
       </div>
     </div>
   </div>
@@ -34,7 +39,7 @@
             <button class="btn btn-danger" (click)="delete(q)">Delete</button>
           </td>
           <td>
-            <button class="btn btn-success" (click)="edit()">Edit</button>
+            <button class="btn btn-info" (click)="edit()">Edit</button>
           </td>
         </tr>
       </table>
