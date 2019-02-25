@@ -14,7 +14,7 @@ export class ApiService {
   private getUserUrl: string = 'http://localhost:3000/get_user'
 
   private getapiUrl: string = 'http://localhost:3000/questions';
-  private addapiUrl: string = 'http://localhost:3000/create';
+  private addapiUrl: string = 'http://localhost:3000/add_question';
   private deleteUrl: string = 'http://localhost:3000/delete_question/';
 
 
