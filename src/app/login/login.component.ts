@@ -23,8 +23,6 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
 
     });
-
-    // this.loginForm.valueChanges.subscribe(console.log)
   }
 
   public f_error() {
@@ -40,10 +38,8 @@ export class LoginComponent implements OnInit {
     this.apiService.login(this.loginForm.value)
     .subscribe(
       data => {
-        console.log(data),
         localStorage.setItem('token', data.token),
         this.router.navigate(['/home'])
-
       },
       err => console.log(err)
     )

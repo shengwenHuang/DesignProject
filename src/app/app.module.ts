@@ -17,12 +17,15 @@ import { UserComponent } from './user/user.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 import { ApiService } from './services/api.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthGuard } from './guard/auth.guard';
+
+
 import { AuthenticationService } from './services/authentication.service';
-import { TokenInterceptor } from './services/token.interceptor';
 import { ViewUserComponent } from './user/view-user/view-user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { RemoveUserComponent } from './user/remove-user/remove-user.component';
+import { ErrorInterceptorService } from './services/error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -47,12 +50,17 @@ import { RemoveUserComponent } from './user/remove-user/remove-user.component';
     BrowserAnimationsModule,
     MatTabsModule
   ],
-  providers: [ApiService, AuthenticationService ,AuthGuard, 
+  providers: [ApiService, AuthenticationService ,AuthGuard,
   {
     provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
+    useClass: TokenInterceptorService,
     multi: true
-  }],
+  },
+{
+  provide: HTTP_INTERCEPTORS,
+  useClass: ErrorInterceptorService,
+  multi: true
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
