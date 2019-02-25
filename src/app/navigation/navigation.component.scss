@@ -1,22 +1,22 @@
-nav {
-    background: red;
-    justify-self: right;
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        li {
-            float: left;
+// nav {
+//     background: red;
+//     justify-self: right;
+//     ul {
+//         list-style-type: none;
+//         margin: 0;
+//         padding: 0;
+//         li {
+//             float: left;
             
-            a {
-                padding: 1.2em;
-                font-size: 20px;
+//             a {
+//                 padding: 1.2em;
+//                 font-size: 20px;
                 
-            }
-            &:hover {
-                background: rgb(43, 153, 255);
-            }
-        }
+//             }
+//             &:hover {
+//                 background: rgb(43, 153, 255);
+//             }
+//         }
         
-    }
-}
+//     }
+// }

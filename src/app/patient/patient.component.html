@@ -1,24 +1,33 @@
-<div class="container mt-3">
-  <div class="card">
-    <h1 card="card-header">
-      View Patient
-    </h1>
-    
-    <div class="card-body" (ngSubmit)="search()">
-      {{patientForm.value | json}}
-      <form [formGroup]="patientForm" >
-        <div class="form-group">
-          <label>NHS Number: </label>
-          <input type="number" formControlName="Nhsno" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Last Name: </label>
-          <input type="text" formControlName="lastname" class="form-control">
-        </div>
-        <div>
-          <button class="btn btn-primary">Search</button>
-        </div>
-      </form>
+<head>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/paper-kit.css" media="screen" />
+  <!--     Fonts and icons     -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body class>
+  <div class="container mt-3">
+    <div class="card">
+      <h1 card="card-header">
+        View Patient
+      </h1>
+        
+      <div class="card-body" (ngSubmit)="search()">
+        {{patientForm.value | json}}
+        <form [formGroup]="patientForm" >
+          <div class="form-group">
+            <label>NHS Number: </label>
+            <input type="number" formControlName="Nhsno" value="" placeholder="NHS No." class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Last Name: </label>
+            <input type="text" formControlName="lastname" value="" placeholder="Last Name" class="form-control" />
+          </div>
+          <div class = "button">
+            <button class="btn btn-primary btn-fill">Search</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+</body>

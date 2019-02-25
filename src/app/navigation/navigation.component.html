@@ -1,9 +1,83 @@
-<header *ngIf="apiService.isLoggedIn()">
-    <div class="logo">
-      <img src="/assets/logo.jpg" width="1000" height="160" class="d-inline-block align-top" alt="">
+<head>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/paper-kit.css" media="screen" />
+  <!-- <link href="bootstrap/css/bootstrap.css" rel="stylesheet" /> -->
+  <!--     Fonts and icons     -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<header>
+  <div class="container">
+    <div>
+      <img src="/assets/img/logo.jpg" height="70" width="431" alt="">
     </div>
-  
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  </div>
+    <div class="dropdown">
+      <!--align left-->
+      <!-- <nav class="navbar navbar-expand-md bg-info">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" routerLink="/home">Home</a>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/patient">View Patient</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/survey">Survey Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/feedback">Feedback Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/user">User Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="apiService.logout()">Logout</a>
+                </li>
+                
+            </ul>
+        </div>
+      </nav> -->
+      <nav class="navbar navbar-expand-lg bg-info">
+        <div class="container">
+            <a class="navbar-brand" routerLink="/home">Home</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-info" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-info">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" routerLink="/patient">View Patient</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/survey">Survey Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/feedback">Feedback Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/user">User Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="apiService.logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+      </nav>
+    </div>
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,5 +105,6 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
+
   </header>
