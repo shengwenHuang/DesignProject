@@ -50,22 +50,6 @@ export class SurveyComponent implements OnInit {
   }
 
 
-  addQuestion(): void {    
-    this.q_obj.push({
-      questionID: null,
-      parent: 0,
-      question: this.new_question
-    })
-
-
-  }
-
-  delete(question: object): void {
-    this.q_obj.splice(this.q_obj.indexOf(question) , 1)  
-
-  }
-
-
 
 
 }
