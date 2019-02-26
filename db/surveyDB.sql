@@ -168,11 +168,11 @@ CREATE TABLE `nhsUsers` (
 --
 
 INSERT INTO `nhsUsers` (`userID`, `staffNo`, `hashedPassword`, `phone`, `email`, `firstname`, `lastname`, `userRoleID`, `statusID`) VALUES
-(1, '3933347548', '', '756-269-2734', 'mmollitt0@example.com', 'Micaela', 'Mollitt', 2, 1),
+(1, '3933347548', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '756-269-2734', 'mmollitt0@example.com', 'Micaela', 'Mollitt', 2, 1),
 (2, '8100912831', '', '609-440-7441', 'switterick1@businessinsider.com', 'Saloma', 'Witterick', 2, 1),
 (3, '6629685733', '', '834-608-9619', 'habella2@wikia.com', 'Hervey', 'Abella', 2, 2),
 (4, '7360283221', '', '315-524-5255', 'mscotchmoor3@newsvine.com', 'Mariejeanne', 'Scotchmoor', 2, 1),
-(5, '7148701740', '', '256-568-1848', 'mdayly4@stanford.edu', 'Mikael', 'Dayly', 1, 2),
+(5, '7148701740', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '256-568-1848', 'mdayly4@stanford.edu', 'Mikael', 'Dayly', 1, 2),
 (6, '8382063896', '', '473-252-6717', 'gstickells5@tmall.com', 'Gaylor', 'Stickells', 1, 2),
 (7, '2232209121', '', '202-455-2877', 'dvallentine6@indiegogo.com', 'Devin', 'Vallentine', 1, 1),
 (8, '4125530513', '', '277-953-7636', 'finott7@vinaora.com', 'Fey', 'Inott', 2, 2),
@@ -647,7 +647,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `questionType`
 --
 ALTER TABLE `questionType`
-  MODIFY `typeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `typeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `response`
