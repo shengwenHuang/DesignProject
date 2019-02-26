@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Survey</ion-title>
+    <ion-progress-bar value="0.2"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let q of all_question">
+    <ion-card-header>
+      <ion-card-title style="font-size: 15px">
+        {{q.question}}
+      </ion-card-title>
+    </ion-card-header>
+
+    <div *ngIf="q.type === 'yes/no'">
+      <ion-button color="success" style="padding-right: 2em" (click)="yes(q.pos)" >Yes</ion-button>
+      <ion-button color="danger" (click)="no(q.pos)">No</ion-button>
+    </div>
+
+    <ion-item *ngIf="q.type === 'free text'">
+      <ion-label position="floating">Write here ...</ion-label>
+      <ion-textarea [(ngModel)] = "text"></ion-textarea>
+    </ion-item>
+
+  </ion-card>
+
+  <ion-button (click)="submit()">Submit</ion-button> 
+
+</ion-content>
