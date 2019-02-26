@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.apiService.login(this.loginForm.value)
     .subscribe(
       data => {
-alStorage.setItem('token', data.token),
+        Storage.setItem('token', data.token),
         this.router.navigate(['/home'])
       },
       err => console.log(err)
