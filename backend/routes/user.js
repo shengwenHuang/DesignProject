@@ -13,7 +13,7 @@ router.post('/login', (req, res) => {
     const user = req.body;
     const staffNo = user.staffNo;
     const password = user.password;
-    const queryString = "SELECT staffNo, userID, hashedPassword, userRoleID, statusID FROM nhsusers WHERE staffNo = ?";
+    const queryString = "SELECT staffNo, userID, hashedPassword, userRoleID, statusID FROM nhsUsers WHERE staffNo = ?";
 
     getConnection().query(queryString, [staffNo], (err, results, fields) => {
         if (err) {
@@ -31,7 +31,7 @@ router.post('/login', (req, res) => {
         if (results[0].statusID === 2) {
             return res.status(401).json({
                 message: "Authorisation failed."
-            });            
+            });
         }
         const hash = results[0].hashedPassword.toString();
         bcrypt.compare(password, hash, (err, bcr_res) => {
@@ -60,7 +60,7 @@ router.post('/login', (req, res) => {
 
 
     })
-    
+
 })
 
 router.post('/register', verifyToken, (req, res) => {
@@ -94,7 +94,7 @@ router.post('/register', verifyToken, (req, res) => {
         } else {
             return res.status(400).json({
                 message: "Invaid user role."
-            })            
+            })
         } {
             userRoleID = 2;
         }
@@ -105,10 +105,10 @@ router.post('/register', verifyToken, (req, res) => {
                 return res.status(500).json({
                     error: err
                 });
-            };    
-    
+            };
+
             const queryString = "INSERT INTO nhsusers (staffNo, hashedPassword, firstname, lastname, email, phone, userRoleID, statusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-    
+
             console.log(user)
             const insert = [user.staff_no, user.password, user.firstname, user.lastname, user.email, user.phone, userRoleID, 1]
             getConnection().query(queryString, insert, (err, results, fields) => {
@@ -120,11 +120,11 @@ router.post('/register', verifyToken, (req, res) => {
                 res.send("Success");
                 console.log("Success, you have added a new user into the database.");
             })
-    
+
           });
 
     })
-    
+
 })
 
 
@@ -141,7 +141,7 @@ router.post('/remove_user', verifyToken, (req, res) => {
             console.log("NHS Staff does not exist.")
             // res.status(401)
             return;
-        } 
+        }
         if (results[0].statusID === 2) {
             console.log("This is an ex-employee.");
             return;
@@ -159,7 +159,7 @@ router.post('/remove_user', verifyToken, (req, res) => {
         })
 
     })
-    
+
 })
 
 
@@ -174,7 +174,7 @@ router.get('/get_user', verifyToken, (req, res) => {
             console.log("Failed to connect to the database." + err);
             return;
         }
-        
+
         res.json(results);
 
     })
