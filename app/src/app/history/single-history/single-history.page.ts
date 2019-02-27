@@ -12,11 +12,12 @@ export class SingleHistoryPage implements OnInit {
   history: any;
   constructor(private apiService: ApiService) { }
 
-
+  ionViewWillEnter() {
+    this.history = this.apiService.currentHistory;
+    console.log(this.history)
+  }
 
   ngOnInit() {
-    this.history = this.apiService.currentHistory;
-    console.log(history)
   }
 
 }

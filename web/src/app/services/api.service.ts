@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 export class ApiService {
 
   private loginUrl: string = 'http://localhost:3000/login';
-  private registerUrl: string = 'http://localhost:3000/register'
-  private removeUserUrl: string = 'http://localhost:3000/remove_user'
-  private getUserUrl: string = 'http://localhost:3000/get_user'
+  private registerUrl: string = 'http://localhost:3000/register';
+  private removeUserUrl: string = 'http://localhost:3000/remove_user';
+  private getUserUrl: string = 'http://localhost:3000/get_user';
+  private patientUrl: string = 'http://localhost:3000/get_patient';
 
   private getapiUrl: string = 'http://localhost:3000/questions';
   private addapiUrl: string = 'http://localhost:3000/add_question';
@@ -21,6 +22,12 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private router: Router) { }
+
+
+  getPatientInfo(user: object) {
+    console.log(user)
+    return this.http.get(this.patientUrl, user)
+  }
 
   getQuestionApi() {
     return this.http.get(this.getapiUrl);

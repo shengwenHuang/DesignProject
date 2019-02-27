@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'survey', loadChildren: '../survey/survey.module#SurveyPageModule' },
       { path: 'history', loadChildren: '../history/history.module#HistoryPageModule' },
       { path: 'profile', loadChildren: '../profile/profile.module#ProfilePageModule' },
-      { path: 'single-history', loadChildren: './history/single-history/single-history.module#SingleHistoryPageModule' }
+      { path: 'single-history', loadChildren: '../history/single-history/single-history.module#SingleHistoryPageModule' }
     ]
   }
   

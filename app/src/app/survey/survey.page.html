@@ -21,7 +21,7 @@
 
     <ion-item *ngIf="q.type === 'free text'">
       <ion-label position="floating">Write here ...</ion-label>
-      <ion-textarea [(ngModel)] = "text"></ion-textarea>
+      <ion-textarea [(ngModel)] = "q.answers"></ion-textarea>
     </ion-item>
 
   </ion-card>

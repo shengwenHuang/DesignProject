@@ -21,11 +21,20 @@ export class PatientComponent implements OnInit {
   }
 
   search() {
+    console.log(this.patientForm.value)
     if (this.patientForm.invalid) {
       alert("Please the Nhsno and the lastname.")
       return;
     }
-    console.log("success")
+
+    this.apiService.getPatientInfo(this.patientForm.value)
+    .subscribe(
+      data => {
+        console.log("Success"),
+        console.log(data)
+      },
+      err => console.log(err)
+    )
   }
 
 }

@@ -12,8 +12,7 @@
         View Patient
       </h1>
         
-      <div class="card-body" (ngSubmit)="search()">
-        {{patientForm.value | json}}
+      <div class="card-body">
         <form [formGroup]="patientForm" >
           <div class="form-group">
             <label>NHS Number: </label>
@@ -23,8 +22,8 @@
             <label>Last Name: </label>
             <input type="text" formControlName="lastname" value="" placeholder="Last Name" class="form-control" />
           </div>
-          <div class = "button">
-            <button class="btn btn-primary btn-fill">Search</button>
+          <div class = "button" >
+            <button class="btn btn-primary btn-fill" (click)="search()">Search</button>
           </div>
         </form>
       </div>

@@ -4,6 +4,60 @@ const getConnection = require('../db')
 const verifyToken = require('../middleware/verify-token');
 
 
+// get patient
+
+router.post("/get_patient", (req, res) => {
+    console.log("OK")
+    // const user = req.body;
+    // const NHSno = user.NHSno;
+    // const lastname = user.lastname;
+    // const queryString = "SELECT patientID FROM patient WHERE NHSno = ? AND lastname = ?";
+
+    // getConnection().query(queryString, [NHSno, lastname], (err, results_1, fields) => {
+
+    //     if (err) {
+    //         console.log("Failed to connect to the database." + err);
+    //         return;
+    //     }
+
+    //     if (results_1.length === 0) {
+    //         return res.status(404).json({
+    //             message: "Patient not found"
+    //         });
+    //     }
+
+
+
+    //     const queryString_2 = "SELECT responseID FROM response WHERE patientID = ?"
+    //     getConnection().query(queryString, [results_1[0].patientID], (err, results_2, fields) => {
+
+    //         if (err) {
+    //             console.log("Failed to add to the database" + err);
+    //             return;
+    //         }
+    
+    //         if (results_2.length === 0) {
+
+    //             res.send({})
+    //         }
+
+    //         console.log({})
+
+
+    
+    
+    //         const answersQueryString = "SELECT responseID FROM response WHERE patientID = ?"
+    
+    //     })
+
+    
+        
+
+
+    // })
+})
+
+
 
 
 
