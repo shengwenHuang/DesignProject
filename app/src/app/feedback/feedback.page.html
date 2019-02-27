@@ -13,20 +13,24 @@
     <ion-button color="danger" (click)=option(1,q.feedbackQuestionID) >
       <i class="far fa-angry" style="font-size: 35px"></i>
     </ion-button>
+    
     <ion-button color="medium" (click)=option(2,q.feedbackQuestionID)>
       <i class="far fa-frown" style="font-size: 35px"></i>
     </ion-button>
-    <ion color="warning" (click)=option(3,q.feedbackQuestionID)>
+    <ion-button color="warning" (click)=option(3,q.feedbackQuestionID)>
       <i class="far fa-meh" style="font-size: 35px"></i>
-    </ion>
+    </ion-button>
+
     <ion-button color="primary" (click)=option(4,q.feedbackQuestionID)>
       <i class="far fa-smile" style="font-size: 35px"></i>
     </ion-button>
+    
     <ion-button color="success" (click)=option(5,q.feedbackQuestionID)>
       <i class="far fa-smile-beam" style="font-size: 35px"></i>
     </ion-button>
 
   </ion-card>
+
   <ion-button (click)="submit()">Sumbit</ion-button>  
 
 </ion-content>

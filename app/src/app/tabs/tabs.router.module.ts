@@ -13,7 +13,8 @@ const routes: Routes = [
       { path: 'feedback', loadChildren: '../feedback/feedback.module#FeedbackPageModule' },
       { path: 'survey', loadChildren: '../survey/survey.module#SurveyPageModule' },
       { path: 'history', loadChildren: '../history/history.module#HistoryPageModule' },
-      { path: 'profile', loadChildren: '../profile/profile.module#ProfilePageModule' }
+      { path: 'profile', loadChildren: '../profile/profile.module#ProfilePageModule' },
+      { path: 'single-history', loadChildren: './history/single-history/single-history.module#SingleHistoryPageModule' }
     ]
   }
   

@@ -19,9 +19,12 @@ router.get('/patient_history', (req,res) => {
             res.send({})
         }
 
+
         const answersQueryString = "SELECT responseID FROM response WHERE patientID = ?"
 
     })
+
+    res.send("Sure")
 })
 
 

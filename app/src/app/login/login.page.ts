@@ -28,23 +28,27 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-    if (this.loginForm.invalid) {
-      this.displayAlert("Enter your login detail", "Please enter your NHS number and last name.")
-      return;
-    }
+    // if (this.loginForm.invalid) {
+    //   this.displayAlert("Enter your login detail", "Please enter your NHS number and last name.")
+    //   return;
+    // }
 
-    this.authService.login(this.loginForm.value)
-    .subscribe(
-      data => {
-        this.authService.setStorage(data.token)
-      },
-      err => {
-        if (err.status == 401) {
-          this.displayAlert("Login Falied", "Please try again")
-        }
-      }
+    // this.authService.login(this.loginForm.value)
+    // .subscribe(
+    //   data => {
+    //     this.authService.setStorage(data.token)
+    //   },
+    //   err => {
+    //     if (err.status == 401) {
+    //       this.displayAlert("Login Falied", "Please try again")
+    //     }
+    //   }
       
-    )
+    // )
+
+
+    // remove this
+    this.authService.setStorage("asdfdfas")
     
 
   }

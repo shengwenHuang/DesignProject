@@ -3,7 +3,7 @@
     <ion-title>History</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<!-- 
 <ion-content padding>
   
   <ion-card *ngFor="let num of [
@@ -20,6 +20,26 @@
       <ion-card-subtitle>
           {{num["date"]}}
       </ion-card-subtitle>
+      <ion-card-content>
+          Gravida habitant tincidunt ut auctor platea suscipit fermentum lacus ante nulla iaculis vestibulum sociosqu, per tempus aliquet risus vel metus enim duis cras aliquet eget vitae
+      </ion-card-content>
+
+    </ion-card-header>
+  
+    </ion-card>
+
+</ion-content> -->
+
+
+<ion-content padding>
+  
+  <ion-card *ngFor="let history of allHistory" (click)="viewHistory(history)">
+
+  <ion-card-header>
+      <ion-card-title>
+        {{history.date}}
+      </ion-card-title>
+
       <ion-card-content>
           Gravida habitant tincidunt ut auctor platea suscipit fermentum lacus ante nulla iaculis vestibulum sociosqu, per tempus aliquet risus vel metus enim duis cras aliquet eget vitae
       </ion-card-content>
