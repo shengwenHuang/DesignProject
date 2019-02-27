@@ -8,7 +8,14 @@ import { ApiService } from '../services/api.service';
 })
 export class ProfilePage implements OnInit {
 
-  userData: object;
+  userData: object= {
+    NHSno : "",
+    firstname: "",
+    lastname: "",
+    email:"",
+    phone:""
+  };
+  
   constructor(
     private apiService: ApiService
   ) { }

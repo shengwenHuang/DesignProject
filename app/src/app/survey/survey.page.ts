@@ -71,15 +71,13 @@ export class SurveyPage implements OnInit {
   submit() {
     
     for (let q of this.all_question) {
-      if (q.type === "free text") {
-        console.log()
-      }
+
       if (!q.answers) {
         this.displayAlert("Please complete the survey", "Please answer all the question.");
         return;
       }
-      this.displayAlert("Success", "Thank you for filling in the survey")
     }
+    this.displayAlert("Success", "Thank you for filling in the survey")
   } 
 
 
