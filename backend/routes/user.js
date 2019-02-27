@@ -68,9 +68,9 @@ router.post('/register', verifyToken, (req, res) => {
     const password = req.body.password;
 
     const queryCheckUser = `SELECT staffNo, description
-    FROM nhsusers
-    INNER JOIN workingstatus on workingstatus.statusID = nhsusers.statusID
-    where nhsusers.staffNo = ?`
+    FROM nhsUsers
+    INNER JOIN workingstatus on workingstatus.statusID = nhsUsers.statusID
+    where nhsUsers.staffNo = ?`
     getConnection().query(queryCheckUser,[user.staffNo], (err, results, fields) => {
 
         if (err) {
@@ -107,7 +107,7 @@ router.post('/register', verifyToken, (req, res) => {
                 });
             };
 
-            const queryString = "INSERT INTO nhsusers (staffNo, hashedPassword, firstname, lastname, email, phone, userRoleID, statusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            const queryString = "INSERT INTO nhsUsers (staffNo, hashedPassword, firstname, lastname, email, phone, userRoleID, statusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
             console.log(user)
             const insert = [user.staff_no, user.password, user.firstname, user.lastname, user.email, user.phone, userRoleID, 1]
@@ -130,7 +130,7 @@ router.post('/register', verifyToken, (req, res) => {
 
 router.post('/remove_user', verifyToken, (req, res) => {
     const staffNo = req.body.staffNo;
-    const queryString = "SELECT statusID FROM nhsusers WHERE staffNo = ?";
+    const queryString = "SELECT statusID FROM nhsUsers WHERE staffNo = ?";
     getConnection().query(queryString, [staffNo], (err, results, fields) => {
         if (err) {
             console.log("Failed to connect to the database." + err);
@@ -147,7 +147,7 @@ router.post('/remove_user', verifyToken, (req, res) => {
             return;
         }
 
-        const removeQueryString = "UPDATE nhsusers SET statusID = 2 WHERE staffNo = ?"
+        const removeQueryString = "UPDATE nhsUsers SET statusID = 2 WHERE staffNo = ?"
         getConnection().query(removeQueryString, [staffNo], (err, results, fields) => {
             if (err) {
                 console.log("Failed to connect to the database." + err);
@@ -166,8 +166,8 @@ router.post('/remove_user', verifyToken, (req, res) => {
 // Get all the user
 router.get('/get_user', verifyToken, (req, res) => {
     const queryString = `SELECT staffNo, firstname, lastname, email, phone, userrole.roleName
-    FROM nhsusers
-    INNER JOIN userrole ON nhsusers.userRoleID = userrole.roleID
+    FROM nhsUsers
+    INNER JOIN userrole ON nhsUsers.userRoleID = userrole.roleID
     ORDER BY userRoleID ASC`;
     getConnection().query(queryString, (err, results, fields) => {
         if (err) {
