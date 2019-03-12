@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
       confirm_password: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
       phone: ['', Validators.required],
       userRole: ['', Validators.required]
 
