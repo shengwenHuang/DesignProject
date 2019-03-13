@@ -13,7 +13,7 @@ router.post('/login', (req, res) => {
     const user = req.body;
     const staffNo = user.staffNo;
     const password = user.password;
-    const queryString = "SELECT staffNo, userID, hashedPassword, userRoleID, statusID FROM nhsUsers WHERE staffNo = ?";
+    const queryString = "SELECT staffNo, userID, hashedPassword, userRoleID, statusID, firstname FROM nhsUsers WHERE staffNo = ?";
 
     getConnection().query(queryString, [staffNo], (err, results, fields) => {
         if (err) {
@@ -49,7 +49,8 @@ router.post('/login', (req, res) => {
             } else {
                 jwt.sign({
                     userID : results[0].userID,
-                    userRoleID: results[0].userRoleID
+                    userRoleID: results[0].userRoleID,
+                    firstname: results[0].firstname
                 }, 'J9dah7kPbo', {expiresIn : "1h"}, (err, token) => {
                     res.status(200).json({
                         message: "Authorisation successful",

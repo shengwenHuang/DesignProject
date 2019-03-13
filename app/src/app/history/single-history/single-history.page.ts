@@ -14,7 +14,6 @@ export class SingleHistoryPage implements OnInit {
 
   ionViewWillEnter() {
     this.history = this.apiService.currentHistory;
-    console.log(this.history)
   }
 
   ngOnInit() {

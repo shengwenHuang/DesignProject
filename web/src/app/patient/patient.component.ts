@@ -6,7 +6,11 @@ import { ApiService } from '../services/api.service';
   templateUrl: './patient.component.html',
   styleUrls: ['./patient.component.scss']
 })
+
 export class PatientComponent implements OnInit {
+
+  isSearch:boolean = false;
+  patientHistories:any;
 
   patientForm: FormGroup;
   constructor(
@@ -30,10 +34,15 @@ export class PatientComponent implements OnInit {
     this.apiService.getPatientInfo(this.patientForm.value)
     .subscribe(
       data => {
-        console.log("Success"),
-        console.log(data)
+        this.patientHistories = data,
+        this.isSearch = true;
+
       },
-      err => console.log(err)
+      err => {
+        console.log(err),
+        this.patientHistories = [];
+        this.isSearch = false;
+      }
     )
   }
 

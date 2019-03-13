@@ -47,7 +47,7 @@ export class FeedbackPage implements OnInit {
         this.displayAlert("Success", "Thank you for completing the feedback survey.")
       },
       (err) => {
-        this.displayAlert("Error", "Please try agian late.")
+        this.displayAlert("Error", "Please try agian later.")
       }
       )
   }

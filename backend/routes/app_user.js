@@ -5,32 +5,96 @@ const jwt = require('jsonwebtoken')
 const verifyToken = require('../middleware/verify-token');
 
 
+router.post('/new_survey', verifyToken, (req, res) => {
+
+    const patientID = req.userData.userID;
+    const data = req.body;
+    // const startTime = req.body.startTime;
+    const completeTime = new Date(Date.now())
+    const queryString = "INSERT INTO response (patientID, startTime, completeTime) VALUES (?, ?, ?)"
+    getConnection().query(queryString, [patientID, '2019-03-11 20:55:34', completeTime], (err, results, fields) => {
+        if (err) {
+            console.log("Failed to add to the database" + err);
+            return;
+        }
+        const responseID = results.insertId;
+
+        const answersQuery = "INSERT INTO answer (responseID, patientID, questionID, answer) VALUES (?, ?, ?, ?)"
+
+        var i;
+        for (i = 0; i < data.length; i++) {
+            questionID = data[i].questionID;
+            answer = data[i].answers;
+            
+    
+            getConnection().query(answersQuery, [responseID, patientID, questionID, answer], (err, results, fields) => {
+                if (err) {
+                    console.log("Failed to add to the database" + err);
+                    return;
+                }
+            })
+
+        }
+
+    })
+    res.status(200).json({
+        message: "Survey Completed"
+    })
+
+})
 
 
-router.get('/patient_history', (req,res) => {
-    const queryString = "SELECT responseID FROM response WHERE patientID = ?"
-    getConnection().query(queryString, [2], (err, results, fields) => {
+router.get('/patient_history', verifyToken, (req,res) => {
+    const patientID = req.userData.userID;
+    const queryString = "SELECT responseID, completeTime FROM response WHERE patientID = ? ORDER BY completeTime DESC"
+
+    // First I am checking if there is a any previous survey of the patient
+    getConnection().query(queryString, patientID, async (err, results, fields) => {
         if (err) {
             console.log("Failed to add to the database" + err);
             return;
         }
 
         if (results.length === 0) {
-            res.send({})
+            res.json([])
+            return;
         }
 
 
-        const answersQueryString = "SELECT responseID FROM response WHERE patientID = ?"
+        // I am obtaining all the previous surveys answers
+        var i;
+        for (i = 0; i < results.length; i++) {
+            
+            // Change the date format
+            start = new Date(results[i].startTime)
+            results[i].startTime = `Date: ${start.toDateString()} Time: ${start.toLocaleTimeString()}`
+
+            end = new Date(results[i].completeTime)
+            results[i].completeTime = `Date: ${end.toDateString()} Time: ${end.toLocaleTimeString()}`
+            
+
+            const answersQueryString = `SELECT a.questionID, q.question, q.type, q.pos, a.answer
+            FROM answer AS a, question AS q
+            WHERE a.questionID = q.questionID AND a.responseID = ?`
+            results[i].answer = await new Promise((resolve, reject) => {
+                getConnection().query(answersQueryString, [results[i].responseID], (err, answers, fields) => {
+                    if (err) reject("Failed to add to the database" + err);
+                    else resolve(answers);
+                })
+            });
+            
+        }
+
+        res.json(results)
 
     })
 
-    res.send("Sure")
 })
 
 
-router.get('/patient_info', (req, res) => {
-    const queryString = "SELECT NHSno, phone, email, firstname, lastname FROM patient where NHSno = ?"
-    getConnection().query(queryString, ["1622021215099"], (err, results, fields) => {
+router.get('/patient_info', verifyToken, (req, res) => {
+    const queryString = "SELECT NHSno, phone, email, firstname, lastname FROM patient where patientID = ?"
+    getConnection().query(queryString, [req.userData.userID], (err, results, fields) => {
         if (err) {
             console.log("Failed to add to the database" + err);
             return;
@@ -40,21 +104,20 @@ router.get('/patient_info', (req, res) => {
             console.log("The NHS patient user does not exist.");
             return;
         }
-        console.log("sucess");
+        console.log("success");
         res.json(results[0]);
     })
 })
 
 
 
-router.post('/add_feedback', (req, res) => {
-    // Fix the patientID stuff
-    const patientID = 1;
+router.post('/add_feedback', verifyToken, (req, res) => {
+    const patientID = req.userData.userID;
     const data = req.body.data;
     const startTime = req.body.startTime;
-    const completeTime = Date.now()
+    const completeTime = Math.round(Date.now()/1000)
     const queryString = "INSERT INTO feedbackresponse (patientID, startTime, completeTime) VALUES (?, ?, ?)"
-    getConnection().query(queryString, [patientID, '2019-02-17 20:55:34', '2019-02-17 21:04:34'], (err, results, fields) => {
+    getConnection().query(queryString, [patientID, '2019-02-17 20:55:34', completeTime], (err, results, fields) => {
         if (err) {
             console.log("Failed to add to the database" + err);
             return;
@@ -105,7 +168,6 @@ router.get('/feedback_ques', (req, res) => {
 
 
 router.post('/login', (req, res) => {
-    // console.log(req.body);
     const user = req.body;
     const NHSno = user.NHSno;
     const lastname = user.lastname;

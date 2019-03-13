@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -19,7 +18,6 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private plt: Platform,
-    private storage: Storage,
     private router: Router) { }
 
   login(user: object) {
@@ -27,19 +25,15 @@ export class AuthService {
   }
 
   setStorage(token:string): void {
-    this.storage.set("token",token);
+    localStorage.setItem("token",token)
     this.authenticationState.next(true);
   }
 
-  getToken() {
-    return this.storage.get("token");
-  }
 
   logout() {
-    this.storage.remove("token").then(() => {
-      this.authenticationState.next(false)
-    })
 
+    localStorage.removeItem("token");
+    this.authenticationState.next(false);
   }
 
   isAuth() {

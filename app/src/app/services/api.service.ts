@@ -8,15 +8,21 @@ export class ApiService {
 
   currentHistory: any;
 
-  private questionUrl = 'http://localhost:3000/questions'
-  private feedbackQuesUrl = 'http://localhost:3000/app/feedback_ques'
-  private addFeedbackUrl = 'http://localhost:3000/app/add_feedback'
-  private userInfoURL = 'http://localhost:3000/app/patient_info'
+  private questionUrl = 'http://localhost:3000/questions';
+  private feedbackQuesUrl = 'http://localhost:3000/app/feedback_ques';
+  private addFeedbackUrl = 'http://localhost:3000/app/add_feedback';
+  private userInfoURL = 'http://localhost:3000/app/patient_info';
+  private patientHistoryUrl = 'http://localhost:3000/app/patient_history';
+  private addSurveyUrl = 'http://localhost:3000/app/new_survey';
 
   constructor(private http: HttpClient) { }
 
   setCurrentHistory(history) {
     this.currentHistory = history;
+  }
+
+  getHistory() {
+    return this.http.get<any>(this.patientHistoryUrl);
   }
 
   getQuestions() {
@@ -31,6 +37,9 @@ export class ApiService {
     return this.http.post<any>(this.addFeedbackUrl, obj);
   }
 
+  addSuvery(obj: object) {
+    return this.http.post<any>(this.addSurveyUrl, obj);
+  }
   getUser() {
     return this.http.get(this.userInfoURL);
   }

@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
       confirm_password: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', Validators.required],
       phone: ['', Validators.required],
       userRole: ['', Validators.required]
 
@@ -37,7 +37,7 @@ export class AddUserComponent implements OnInit {
 
   add_user() {
     if (this.registerForm.invalid) {
-      alert("Some error.");
+      alert("Please complete the form.");
       return;
     }
     if (this.registerForm.value.password != this.registerForm.value.confirm_password) {
@@ -48,7 +48,10 @@ export class AddUserComponent implements OnInit {
     this.apiService.register(this.registerForm.value)
     .subscribe(
       (data) => console.log(data),
-      (err) => console.log(err)
+      (err) => {
+        console.log(err),
+        alert("Something wrong :).");
+      }
     );
   }
 

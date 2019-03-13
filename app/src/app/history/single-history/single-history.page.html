@@ -9,22 +9,22 @@
 
 <ion-content padding>
 
-    <ion-card *ngFor="let q of history.answer">
+    <ion-card *ngFor="let q of history.answer; let i = index">
         <ion-card-header>
           <ion-card-title style="font-size: 15px">
-            {{q.question}}
+            ({{i + 1}}) {{q.question}}
           </ion-card-title>
         </ion-card-header>
     
-        <div *ngIf="q.type === 'yes/no'">
-          <ion-button color="success" *ngIf="q.answers == 'yes' ">Yes</ion-button>
-          <ion-button color="danger" *ngIf="q.answers == 'no' " >No</ion-button>
+        <div *ngIf="q.type === 1">
+          <ion-button color="success" *ngIf="q.answer == 'yes' ">Yes</ion-button>
+          <ion-button color="danger" *ngIf="q.answer == 'no' " >No</ion-button>
         </div>
     
-        <ion-item *ngIf="q.type === 'free text'">
+        <ion-item *ngIf="q.type === 2">
           <ion-label position="stacked">Answer:</ion-label>
           <ion-textarea disabled readonly>
-            {{q.answers}}
+            {{q.answer}}
           </ion-textarea>
         </ion-item>
     

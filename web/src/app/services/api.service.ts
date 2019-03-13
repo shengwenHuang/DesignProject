@@ -26,7 +26,7 @@ export class ApiService {
 
   getPatientInfo(user: object) {
     console.log(user)
-    return this.http.get(this.patientUrl, user)
+    return this.http.post(this.patientUrl, user)
   }
 
   getQuestionApi() {

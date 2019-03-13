@@ -3,46 +3,16 @@
     <ion-title>History</ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- 
-<ion-content padding>
-  
-  <ion-card *ngFor="let num of [
-  {'id': 1, 'name':'Cataract surgery', 'date': '24-01-2019'},
-  {'id': 2,'name':'Hysterectomy', 'date': '25-01-2019'},
-  {'id': 3,'name':'Mastectomy', 'date': '26-01-2019'},
-  {'id': 4,'name':'Coronary artery bypass', 'date': '27-01-2019'},
-  {'id': 5,'name':'Prostatectomy', 'date': '28-01-2019'}]">
-
-  <ion-card-header>
-      <ion-card-title>
-        {{num["id"]}}. {{num["name"]}}
-      </ion-card-title>
-      <ion-card-subtitle>
-          {{num["date"]}}
-      </ion-card-subtitle>
-      <ion-card-content>
-          Gravida habitant tincidunt ut auctor platea suscipit fermentum lacus ante nulla iaculis vestibulum sociosqu, per tempus aliquet risus vel metus enim duis cras aliquet eget vitae
-      </ion-card-content>
-
-    </ion-card-header>
-  
-    </ion-card>
-
-</ion-content> -->
 
 
 <ion-content padding>
   
-  <ion-card *ngFor="let history of allHistory" (click)="viewHistory(history)">
+  <ion-card *ngFor="let history of allHistory; let i = index" (click)="viewHistory(history)">
 
   <ion-card-header>
       <ion-card-title>
-        {{history.date}}
+        ({{i+1}}) {{history.completeTime}}
       </ion-card-title>
-
-      <ion-card-content>
-          Gravida habitant tincidunt ut auctor platea suscipit fermentum lacus ante nulla iaculis vestibulum sociosqu, per tempus aliquet risus vel metus enim duis cras aliquet eget vitae
-      </ion-card-content>
 
     </ion-card-header>
   

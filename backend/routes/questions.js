@@ -7,54 +7,73 @@ const verifyToken = require('../middleware/verify-token');
 // get patient
 
 router.post("/get_patient", (req, res) => {
-    console.log("OK")
-    // const user = req.body;
-    // const NHSno = user.NHSno;
-    // const lastname = user.lastname;
-    // const queryString = "SELECT patientID FROM patient WHERE NHSno = ? AND lastname = ?";
+    const user = req.body;
+    const NHSno = user.Nhsno;
+    const lastname = user.lastname;
+    const queryString = "SELECT patientID FROM patient WHERE NHSno = ? AND lastname = ?";
+    getConnection().query(queryString, [NHSno, lastname], (err, patient, fields) => {
 
-    // getConnection().query(queryString, [NHSno, lastname], (err, results_1, fields) => {
+        if (err) {
+            console.log("Failed to connect to the database." + err);
+            return;
+        }
+        if (patient.length === 0) {
+            return res.status(404).json({
+                message: "Patient not found"
+            });
+        }
 
-    //     if (err) {
-    //         console.log("Failed to connect to the database." + err);
-    //         return;
-    //     }
+        patientID = patient[0].patientID
 
-    //     if (results_1.length === 0) {
-    //         return res.status(404).json({
-    //             message: "Patient not found"
-    //         });
-    //     }
+        const queryString = "SELECT responseID, completeTime FROM response WHERE patientID = ? ORDER BY completeTime DESC"
+
+        // First I am checking if there is a any previous survey of the patient
+        getConnection().query(queryString, [patientID], async (err, results, fields) => {
+            if (err) {
+                console.log("Failed to add to the database" + err);
+                return;
+            }
+
+            if (results.length === 0) {
+                res.json([])
+                return;
+            }
+
+            // I am obtaining all the previous surveys answers
+            var i;
+            for (i = 0; i < results.length; i++) {
+                
+                 // Change the date format
+                start = new Date(results[i].startTime)
+                results[i].startTime = `Date: ${start.toDateString()} Time: ${start.toLocaleTimeString()}`
+
+                end = new Date(results[i].completeTime)
+                results[i].completeTime = `Date: ${end.toDateString()} Time: ${end.toLocaleTimeString()}`
+
+                const answersQueryString = `SELECT a.questionID, q.question, q.type, q.pos, a.answer
+                FROM answer AS a, question AS q
+                WHERE a.questionID = q.questionID AND a.responseID = ?`
+                results[i].answer = await new Promise((resolve, reject) => {
+                    getConnection().query(answersQueryString, [results[i].responseID], (err, answers, fields) => {
+                        if (err) reject("Failed to add to the database" + err);
+                        else resolve(answers);
+                    })
+                });
+                
+                
 
 
+            }
 
-    //     const queryString_2 = "SELECT responseID FROM response WHERE patientID = ?"
-    //     getConnection().query(queryString, [results_1[0].patientID], (err, results_2, fields) => {
+            res.json(results)
 
-    //         if (err) {
-    //             console.log("Failed to add to the database" + err);
-    //             return;
-    //         }
-    
-    //         if (results_2.length === 0) {
-
-    //             res.send({})
-    //         }
-
-    //         console.log({})
-
-
-    
-    
-    //         const answersQueryString = "SELECT responseID FROM response WHERE patientID = ?"
-    
-    //     })
-
-    
+        })
         
+    })
 
 
-    // })
+
+    
 })
 
 
