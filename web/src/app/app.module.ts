@@ -14,7 +14,11 @@ import { PatientComponent } from './patient/patient.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SurveyComponent } from './survey/survey.component';
 import { UserComponent } from './user/user.component';
+<<<<<<< HEAD
 import { AddUserComponent } from './add-user/add-user.component';
+=======
+import { AddUserComponent } from './user/add-user/add-user.component';
+>>>>>>> afe67f3b5adb00d8472e0ec4caac5512e94151c1
 import { NavigationComponent } from './navigation/navigation.component';
 
 import { ApiService } from './services/api.service';

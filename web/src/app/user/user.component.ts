@@ -11,8 +11,14 @@ import { ApiService } from '../services/api.service';
 export class UserComponent implements OnInit {
   u_obj: any = [];
   new_user: string;
+<<<<<<< HEAD
   isNewUser: boolean = false;
 
+=======
+  isNewUser:boolean = false;
+
+
+>>>>>>> afe67f3b5adb00d8472e0ec4caac5512e94151c1
   constructor(
     private apiService: ApiService,
     private router: Router) { }
@@ -26,12 +32,21 @@ export class UserComponent implements OnInit {
     ); 
   }
   addUser(): void {
+<<<<<<< HEAD
     if(this.isNewUser) {
+=======
+    if (this.isNewUser) {
+>>>>>>> afe67f3b5adb00d8472e0ec4caac5512e94151c1
       this.isNewUser = false;
     } else {
       this.isNewUser = true;
     }
+<<<<<<< HEAD
     // this.router.navigate(['/feedback'])
+=======
+    // this.router.navigate(['/user/add-user'])
+    // for some reason this does not work. I will try to fix it later.
+>>>>>>> afe67f3b5adb00d8472e0ec4caac5512e94151c1
   }
 
   delete(user: any): void {
