@@ -14,6 +14,7 @@ import { PatientComponent } from './patient/patient.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SurveyComponent } from './survey/survey.component';
 import { UserComponent } from './user/user.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 import { ApiService } from './services/api.service';
@@ -23,7 +24,6 @@ import { AuthGuard } from './guard/auth.guard';
 
 import { AuthenticationService } from './services/authentication.service';
 import { ViewUserComponent } from './user/view-user/view-user.component';
-import { AddUserComponent } from './user/add-user/add-user.component';
 import { RemoveUserComponent } from './user/remove-user/remove-user.component';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 
@@ -36,9 +36,9 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     FeedbackComponent,
     SurveyComponent,
     UserComponent,
+    AddUserComponent,
     NavigationComponent,
     ViewUserComponent,
-    AddUserComponent,
     RemoveUserComponent,
   ],
   imports: [
