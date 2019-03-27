@@ -23,8 +23,8 @@ export class AddUserComponent implements OnInit {
       confirm_password: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
+      phone: ['', Validators.required, Validators.pattern('^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$')],
       userRole: ['', Validators.required]
 
 
