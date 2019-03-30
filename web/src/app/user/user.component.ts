@@ -26,6 +26,8 @@ export class UserComponent implements OnInit {
       err => console.log(err) 
     ); 
   }
+
+  
   addUser(): void {
     // if (this.isNewUser) {
     //   this.isNewUser = false;
