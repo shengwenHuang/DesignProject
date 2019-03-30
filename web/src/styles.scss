@@ -2,12 +2,24 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "./assets/sass/paper-kit.scss";
 
-// @media screen and (max-width: 991px) {
-//     #navbar-info.navbar-collapse{
-//         height: calc(100% - 141px);
-//         top:141px;
-//     }
-//     #navbar-info.show{
-//         transform: none !important;
-//     }
-// }
+@media screen and (max-width: 991px) {
+    #navbar-info.navbar-collapse{
+        height: calc(100% - 141px);
+        top:141px;
+    }
+    #navbar-info.show{
+        transform: none !important;
+    }
+}
+
+// hide the spinner button 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0; 
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}

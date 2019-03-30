@@ -18,18 +18,29 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.fb.group({
 
-      staff_no: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      staff_username: ['', [Validators.required, , Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       confirm_password: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
-      phone: ['', Validators.required, Validators.pattern('^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$')],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern('^[+]447\d{9}$')]],
       userRole: ['', Validators.required]
 
 
     })
   }
+
+  //   registerForm = this.fb.group({
+  //   staff_username: ['', Validators.required],
+  //   password: ['', [Validators.required, Validators.minLength(6)]],
+  //   confirm_password: ['', Validators.required],
+  //   firstname: ['', Validators.required],
+  //   lastname: ['', Validators.required],
+  //   email: ['', Validators.required, Validators.email],
+  //   phone: ['', [Validators.required, Validators.pattern('^[+]447\d{9}$')]],
+  //   userRole: ['', Validators.required]
+  // });
 
   f_error() {
     return this.registerForm.controls;
