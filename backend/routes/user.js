@@ -166,10 +166,27 @@ router.post('/remove_user', verifyToken, (req, res) => {
 
 // Get all the user
 router.get('/get_user', verifyToken, (req, res) => {
-    const queryString = `SELECT staffNo, firstname, lastname, email, phone, userrole.roleName
-    FROM nhsUsers
-    INNER JOIN userrole ON nhsUsers.userRoleID = userrole.roleID
-    ORDER BY userRoleID ASC`;
+    const queryString = `SELECT u.staffNo, u.firstname, u.lastname, u.email, u.phone, r.roleName, s.description
+    FROM nhsUsers AS u, userRole AS r, workingStatus AS s
+    WHERE u.userRoleID = r.roleID 
+    AND s.statusID = u.statusID
+    ORDER BY u.userRoleID ASC, s.description ASC, u.lastname ASC`;
+    getConnection().query(queryString, (err, results, fields) => {
+        if (err) {
+            console.log("Failed to connect to the database." + err);
+            return;
+        }
+
+        res.json(results);
+
+    })
+
+})
+
+// edit what?
+router.post('/edit', verifyToken, (req, res) => {
+
+    const queryString = ``;
     getConnection().query(queryString, (err, results, fields) => {
         if (err) {
             console.log("Failed to connect to the database." + err);
