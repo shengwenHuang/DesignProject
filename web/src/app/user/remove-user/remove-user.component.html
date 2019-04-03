@@ -1,0 +1,17 @@
+
+<div class="card-body">
+    <form [formGroup]="removeForm" (ngSubmit)="remove_user()">
+      <div class="form-group">
+        <label>Staff Number: </label>
+        <input type="number" formControlName="staffNo" class="form-control" placeholder="Enter the staff number">
+
+      </div>
+
+      <div class="container text-center">
+        <button class="btn btn-danger btn-fill">Delete</button>
+      </div>
+    </form>
+  </div>
+
+
+  

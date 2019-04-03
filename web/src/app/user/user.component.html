@@ -1,0 +1,83 @@
+
+<h1>User Management</h1>
+
+<div class="container add-question">
+  <div class="card" style="margin-top: 1.5em">
+    <div class="card-body">
+      <h5>New User</h5>
+      <div>
+        <button class="btn btn-primary btn-fill"  (click)="addUser()" >Add User</button>
+        <app-add-user *ngIf="isNewUser"></app-add-user>
+      </div>
+    </div>
+  </div>
+</div >
+
+<p *ngFor="let u of u_obj">
+    {{u.userID}}
+</p>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <table class="table">
+        <caption><span class="glyphicon glyphicon-user" ></span> Admin</caption>
+        <thead class="thead-dark">
+          <tr>
+            <th></th>
+            <th>Staff Username</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Role</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tr *ngFor="let u of u_obj">
+          <td><span *ngIf="u.roleName=='admin'" class="glyphicon glyphicon-user"></span></td>
+          <td>{{u.staffNo}}</td>
+          <td>{{u.phone}}</td>
+          <td>{{u.email}}</td>
+          <td>{{u.firstname}}</td>
+          <td>{{u.lastname}}</td>
+          <td>{{u.roleName}}</td>
+          <td>{{u.description}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="delete(u)">Delete</button>
+          </td>
+          <td>
+            <button class="btn btn-info" (click)="edit()">Edit</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- <h1 style="text-align: center;">Manage Users</h1>
+
+
+<div class="container mt-3" style="border: 2px cornflowerblue solid ; border-radius: 25px; padding-bottom: 4em">
+  <mat-tab-group mat-align-tabs="center">
+    
+    <mat-tab label="Add User">
+      <ng-template matTabContent>
+        <app-add-user></app-add-user>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab label="View Users">
+      <ng-template matTabContent>
+        <app-view-user></app-view-user>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab label="Remove User">
+      <ng-template matTabContent>
+        <app-remove-user></app-remove-user>
+      </ng-template>
+    </mat-tab>
+    
+  </mat-tab-group>
+</div> -->
