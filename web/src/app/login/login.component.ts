@@ -11,11 +11,19 @@ import { ApiService } from '../services/api.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  invalid:string = "";
+  submitted: boolean = false;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private apiService: ApiService) { }
+    private apiService: ApiService) {
+      
+      if(this.apiService.isLoggedIn) {
+        this.router.navigate(['home']);
+      }
+     }
+    
   
   ngOnInit() {
 
@@ -26,14 +34,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public f_error() {
-    return this.loginForm.controls;
-  }
-
   public login() {
+
+    this.submitted = true;
     
     if (this.loginForm.invalid) {
-      alert("Please enter your username and password.")
       return;
     }
 
@@ -43,9 +48,9 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', data.token),
         this.router.navigate(['/home'])
       },
-      err => console.log(err)
+      err => this.invalid = err.message
     )
-
+    
   }
 
 }

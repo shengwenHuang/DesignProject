@@ -166,6 +166,13 @@ router.post('/remove_user', verifyToken, (req, res) => {
 
 // Get all the user
 router.get('/get_user', verifyToken, (req, res) => {
+
+    if (req.userData.userRoleID !== 1) {
+        return res.status(401).json({
+            message: "Authorisation access."
+        })
+    }
+
     const queryString = `SELECT u.staffNo, u.firstname, u.lastname, u.email, u.phone, r.roleName, s.description
     FROM nhsUsers AS u, userRole AS r, workingStatus AS s
     WHERE u.userRoleID = r.roleID 

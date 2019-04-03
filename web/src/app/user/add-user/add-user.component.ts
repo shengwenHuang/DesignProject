@@ -42,10 +42,6 @@ export class AddUserComponent implements OnInit {
   //   userRole: ['', Validators.required]
   // });
 
-  f_error() {
-    return this.registerForm.controls;
-  }
-
   add_user() {
     if (this.registerForm.invalid) {
       alert("Please complete the form.");
@@ -61,7 +57,7 @@ export class AddUserComponent implements OnInit {
       (data) => console.log(data),
       (err) => {
         console.log(err),
-        alert("Something wrong :).");
+        alert("Something wrong :)");
       }
     );
   }
