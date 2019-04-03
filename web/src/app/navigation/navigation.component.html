@@ -38,7 +38,7 @@
             </ul>
         </div>
       </nav> -->
-      <nav class="navbar navbar-expand-lg bg-info">
+      <nav class="navbar navbar-expand-lg bg-info" *ngIf=apiService.isLoggedIn()>
         <div class="container">
             <a class="navbar-brand" routerLink="/home">Home</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-info" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
                         <a class="nav-link" routerLink="/feedback">Feedback Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/user">User Management</a>
+                        <a class="nav-link" routerLink="/user" *ngIf=apiService.isAdmin()>User Management </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" (click)="apiService.logout()">Logout</a>
