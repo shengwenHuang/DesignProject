@@ -4,47 +4,80 @@
   <div class="card">
     <div class="card-body">
         <form [formGroup]="registerForm" (ngSubmit)="add_user()">
-          <div class="form-group">
-            <label>Staff Username: </label>
-            <input id="staff_username" type="number" formControlName="staff_username" class="form-control" placeholder="Enter your username">
+          <div class="form-group" [ngClass]="{'has-error':formErrors.staff_username}">
+            <label class="control-label" for="staff_username">Staff Username: </label>
+            <input id="staff_username" type="text" formControlName="staff_username" class="form-control" placeholder="Enter your username" 
+            (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.staff_username">
+              {{formErrors.staff_username}}
+            </span>
+          </div>
+          <div  formGroupName="passwordGroup">
+            <div class="form-group" [ngClass]="{'has-error':formErrors.password}">
+              <label class="control-label" for="password">Password: </label>
+              <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password" 
+              (blur)="logValidationErrors()">
+              <span class="help-block" *ngIf="formErrors.password">
+                {{formErrors.password}}
+              </span>
+            </div>
+  
+            <div class="form-group" [ngClass]="{'has-error':formErrors.confirm_password || formErrors.passwordGroup}">
+              <label class="control-label" for="confirm_password">Confirm Password: </label>
+              <input id="confirm_password" type="password" formControlName="confirm_password" class="form-control" placeholder="Confirm your password" 
+              (blur)="logValidationErrors()">
+              <span class="help-block" *ngIf="formErrors.confirm_password || formErrors.passwordGroup">
+                {{formErrors.confirm_password ? formErrors.confirm_password : formErrors.passwordGroup}}
+              </span>
+            </div>
+          </div>
+          
+          <div class="form-group" [ngClass]="{'has-error':formErrors.firstname}">
+            <label class="control-label" for="firstname">First Name: </label>
+            <input id="firstname" type="text" formControlName="firstname" class="form-control" placeholder="Enter your first name" 
+            (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.firstname">
+              {{formErrors.firstname}}
+            </span>
           </div>
 
-          <div class="form-group">
-            <label>Password: </label>
-            <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password">
+          <div class="form-group" [ngClass]="{'has-error':formErrors.lastname}">
+            <label class="control-label" for="lastname">Last Name: </label>
+            <input id="lastname" type="text" formControlName="lastname" class="form-control" placeholder="Enter your last name" 
+            (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.lastname">
+              {{formErrors.lastname}}
+            </span>
           </div>
 
-          <div class="form-group">
-            <label>Confirm Password: </label>
-            <input id="confirm_password" type="password" formControlName="confirm_password" class="form-control" placeholder="Confirm your password">
+          <div class="form-group" [ngClass]="{'has-error':formErrors.email}">
+            <label class="control-label" for="email">Email: </label>
+            <input id="email" type="email" formControlName="email" class="form-control" placeholder="Enter your email" 
+            (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.email">
+              {{formErrors.email}}
+            </span>
           </div>
 
-          <div class="form-group">
-            <label>First Name: </label>
-            <input id="firstname" type="text" formControlName="firstname" class="form-control" placeholder="Enter your first name">
-          </div>
-
-          <div class="form-group">
-            <label>Last Name: </label>
-            <input id="lastname" type="text" formControlName="lastname" class="form-control" placeholder="Enter your last name">
-          </div>
-
-          <div class="form-group">
-            <label>Email: </label>
-            <input id="email" type="email" formControlName="email" class="form-control" placeholder="Enter your email">
-          </div>
-
-          <div class="form-group">
-            <label>Mobile Number: </label>
-            <input id="phone" type="tel" formControlName="phone" class="form-control" placeholder="Enter your mobile number">
+          <div class="form-group" [ngClass]="{'has-error':formErrors.phone}">
+            <label class="control-label" for="phone">Mobile Number: </label>
+            <input id="phone" type="tel" formControlName="phone" class="form-control" placeholder="Enter your mobile number" 
+            (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.phone">
+              {{formErrors.phone}}
+            </span>
           </div>
       
-          <div>
-            <label>User Role: </label>
-            <select class="form-control" formControlName="userRole" id="userRole">
+          <div class="form-group" [ngClass]="{'has-error':formErrors.userRole}">
+            <label class="control-label" for="userRole">User Role: </label>
+            <select class="form-control" formControlName="userRole" id="userRole"
+            (blur)="logValidationErrors()">
               <option>Admin</option>
               <option>NHS Staff</option>
             </select> 
+            <span class="help-block" *ngIf="formErrors.userRole">
+              {{formErrors.userRole}}
+            </span>
           </div>
 
           <div class="container text-center" style="padding-top: 2em">
@@ -52,75 +85,5 @@
           </div>
         </form>
     </div>
-  </div>
-</div>
-
-<div *ngIf="staff_username.invalid && (staff_username.dirty || staff_username.touched)"
-    class="alert alert-danger">
-
-  <div *ngIf="staff_username.errors.required">
-    Username is required.
-  </div>
-  <div *ngIf="staff_username.errors.minlength">
-    Username must be at least 6 characters long.
-  </div>
-</div>
-
-<div *ngIf="password.invalid && (password.dirty || password.touched)"
-    class="alert alert-danger">
-
-  <div *ngIf="password.errors.required">
-    Password is required.
-  </div>
-  <div *ngIf="password.errors.minlength">
-    Password must be at least 8 characters long.
-  </div>
-</div>
-
-<div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
-    class="alert alert-danger">
-
-  <div *ngIf="firstname.errors.required">
-    Your first name is required.
-  </div>
-</div>
-
-<div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
-    class="alert alert-danger">
-
-  <div *ngIf="lastname.errors.required">
-    Your last name is required.
-  </div>
-</div>
-
-<div *ngIf="email.invalid && (email.dirty || email.touched)"
-    class="alert alert-danger">
-
-  <div *ngIf="email.errors.required">
-    Your email is required.
-  </div>
-
-  <div *ngIf="email.errors.email">
-    Invalid email address.
-  </div>
-</div>
-
-<div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
-    class="alert alert-danger">
-
-  <div *ngIf="phone.errors.required">
-    Your phone is required.
-  </div>
-
-  <div *ngIf="phone.errors.pattern">
-    Invalid phone number.
-  </div>
-</div>
-
-<div *ngIf="userRole.invalid && (userRole.dirty || userRole.touched)"
-    class="alert alert-danger">
-
-  <div *ngIf="userRole.errors.required">
-    Your role is required.
   </div>
 </div>
