@@ -46,9 +46,13 @@ export class UserComponent implements OnInit {
     );
   }
 
-  edit(): void {
-    console.log("dsafasdfasdf");
-  }
+  // edit(): void {
+  //   this.apiService.remove_user(user.userID)
+  //   .subscribe(
+  //     data => this.u_obj.splice(this.u_obj.indexOf(user) , 1),
+  //     err => console.log(err)
+  //   );
+  // }
 }
 
 
