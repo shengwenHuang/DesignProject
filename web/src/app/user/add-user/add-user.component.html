@@ -1,50 +1,106 @@
 <h1>Add User</h1>
 
+
 <div class="container">
+  <button type="button" class="btn btn-secondary" (click)="goBack()" style="margin-bottom: 2em">Go Back</button>
+
   <div class="card">
     <div class="card-body">
         <form [formGroup]="registerForm" (ngSubmit)="add_user()">
           <div class="form-group">
-            <label>Staff Username: </label>
-            <input id="staff_username" type="number" formControlName="staff_username" class="form-control" placeholder="Enter your username">
+            <label>Username: </label>
+            <input type="text" formControlName="username" class="form-control" placeholder="Enter your username">
+            
+            <div *ngIf="getError('username').invalid && (getError('username').dirty || getError('username').touched)" class="alert alert-danger">
+              <div *ngIf="getError('username').errors.required"> Username is required.</div>
+              <div *ngIf="getError('username').errors.minlength"> Username must be at least 6 characters long.</div>
+            </div>
           </div>
 
           <div class="form-group">
             <label>Password: </label>
-            <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password">
+            <input type="password" formControlName="password" class="form-control" placeholder="Enter your password">
+            <div *ngIf="getError('password').invalid && (getError('password').dirty || getError('password').touched)" class="alert alert-danger">
+
+              <div *ngIf="getError('password').errors.required">
+                Password is required.
+              </div>
+              <div *ngIf="getError('password').errors.minlength">
+                Password must be at least {{getError('password').errors.minlength.requiredLength}} characters long.
+              </div>
+
+            </div>
           </div>
 
           <div class="form-group">
             <label>Confirm Password: </label>
-            <input id="confirm_password" type="password" formControlName="confirm_password" class="form-control" placeholder="Confirm your password">
+            <input type="password" formControlName="confirm_password" class="form-control" placeholder="Confirm your password">
           </div>
 
           <div class="form-group">
             <label>First Name: </label>
-            <input id="firstname" type="text" formControlName="firstname" class="form-control" placeholder="Enter your first name">
+            <input type="text" formControlName="firstname" class="form-control" placeholder="Enter your first name">
+              <div *ngIf="getError('firstname').invalid && (getError('firstname').dirty || getError('firstname').touched)"
+                  class="alert alert-danger">
+
+                <div *ngIf="getError('firstname').errors.required">
+                  Your first name is required.
+                </div>
+              </div>
           </div>
 
           <div class="form-group">
             <label>Last Name: </label>
-            <input id="lastname" type="text" formControlName="lastname" class="form-control" placeholder="Enter your last name">
+            <input type="text" formControlName="lastname" class="form-control" placeholder="Enter your last name">
+              <div *ngIf="getError('lastname').invalid && (getError('lastname').dirty || getError('lastname').touched)"
+                  class="alert alert-danger">
+
+                <div *ngIf="getError('lastname').errors.required">
+                  Your last name is required.
+                </div>
+              </div>
           </div>
 
           <div class="form-group">
             <label>Email: </label>
-            <input id="email" type="email" formControlName="email" class="form-control" placeholder="Enter your email">
+            <input type="email" formControlName="email" class="form-control" placeholder="Enter your email">
+              <div *ngIf="getError('email').invalid && (getError('email').dirty || getError('email').touched)" class="alert alert-danger">
+                <div *ngIf="getError('email').errors.required">
+                  Your email is required.
+                </div>
+              </div>
           </div>
 
           <div class="form-group">
             <label>Mobile Number: </label>
-            <input id="phone" type="tel" formControlName="phone" class="form-control" placeholder="Enter your mobile number">
+            <input type="number" formControlName="phone" class="form-control" placeholder="Enter your mobile number">
+            <div *ngIf="getError('phone').invalid && (getError('phone').dirty || getError('phone').touched)"
+                class="alert alert-danger">
+
+              <div *ngIf="getError('phone').errors.required">
+                Your phone is required.
+              </div>
+
+              <div *ngIf="getError('phone').errors.pattern">
+                Invalid phone number.
+              </div>
+            </div>
           </div>
       
           <div>
             <label>User Role: </label>
-            <select class="form-control" formControlName="userRole" id="userRole">
+            <select class="form-control" formControlName="userRole">
               <option>Admin</option>
               <option>NHS Staff</option>
             </select> 
+
+            <div *ngIf="getError('userRole').invalid && (getError('userRole').dirty || getError('userRole').touched)"
+              class="alert alert-danger">
+
+              <div *ngIf="getError('userRole').errors.required">
+                Your role is required.
+              </div>
+            </div>
           </div>
 
           <div class="container text-center" style="padding-top: 2em">
@@ -55,17 +111,22 @@
   </div>
 </div>
 
-<div *ngIf="staff_username.invalid && (staff_username.dirty || staff_username.touched)"
+
+
+<!-- <div *ngIf="registerForm.get('username').invalid && (registerForm.get('username').dirty || registerForm.get('username').touched)"
     class="alert alert-danger">
 
-  <div *ngIf="staff_username.errors.required">
+  <div *ngIf="registerForm.get('username').errors.required">
     Username is required.
   </div>
-  <div *ngIf="staff_username.errors.minlength">
+
+  <div *ngIf="registerForm.get('username').errors.minlength">
     Username must be at least 6 characters long.
   </div>
-</div>
 
+</div> -->
+
+<!-- 
 <div *ngIf="password.invalid && (password.dirty || password.touched)"
     class="alert alert-danger">
 
@@ -123,4 +184,4 @@
   <div *ngIf="userRole.errors.required">
     Your role is required.
   </div>
-</div>
+</div> -->

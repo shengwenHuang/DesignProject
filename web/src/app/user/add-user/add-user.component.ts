@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ApiService } from 'src/app/services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -13,12 +14,13 @@ export class AddUserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService) { }
+    private apiService: ApiService,
+    private router: Router) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
 
-      staff_username: ['', [Validators.required, , Validators.minLength(6)]],
+      username: ['', [Validators.required, , Validators.minLength(6)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirm_password: ['', Validators.required],
       firstname: ['', Validators.required],
@@ -42,9 +44,17 @@ export class AddUserComponent implements OnInit {
   //   userRole: ['', Validators.required]
   // });
 
+  goBack() {
+    this.router.navigate(["user"])
+  }
+
+  getError(id:string) {
+    return this.registerForm.get(id);
+  }
+
   add_user() {
     if (this.registerForm.invalid) {
-      alert("Please complete the form.");
+      // alert("Please complete the form.");
       return;
     }
     if (this.registerForm.value.password != this.registerForm.value.confirm_password) {
