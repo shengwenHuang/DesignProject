@@ -35,8 +35,9 @@ router.post("/get_patient", (req, res) => {
             }
 
             if (results.length === 0) {
-                res.json([])
-                return;
+                return res.status(404).json({
+                    message: "This patient has never filled in a survey."
+                })
             }
 
             // I am obtaining all the previous surveys answers

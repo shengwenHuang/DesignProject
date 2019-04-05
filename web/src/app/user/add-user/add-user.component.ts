@@ -114,10 +114,6 @@ export class AddUserComponent implements OnInit {
     });
   }
 
-  f_error() {
-    return this.registerForm.controls;
-  }
-
   add_user() {
     this.logValidationErrors(this.registerForm);
     console.log(this.formErrors);
@@ -130,7 +126,7 @@ export class AddUserComponent implements OnInit {
       (data) => console.log(data),
       (err) => {
         console.log(err),
-        alert("Something wrong :).");
+        alert("Something wrong :)");
       }
     );
   }

@@ -11,6 +11,7 @@ export class PatientComponent implements OnInit {
 
   isSearch:boolean = false;
   patientHistories:any;
+  invalid:string = ""
 
   patientForm: FormGroup;
   constructor(
@@ -25,21 +26,20 @@ export class PatientComponent implements OnInit {
   }
 
   search() {
-    console.log(this.patientForm.value)
     if (this.patientForm.invalid) {
-      alert("Please the Nhsno and the lastname.")
       return;
     }
 
     this.apiService.getPatientInfo(this.patientForm.value)
     .subscribe(
       data => {
+        this.invalid = ""
         this.patientHistories = data,
         this.isSearch = true;
 
       },
       err => {
-        console.log(err),
+        this.invalid = err.message;
         this.patientHistories = [];
         this.isSearch = false;
       }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable({
@@ -61,6 +62,17 @@ export class ApiService {
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/login'])
+  }
+
+  isAdmin() {
+    const helper = new JwtHelperService()
+    const decodedToken = helper.decodeToken(localStorage.getItem('token'));
+    
+    if (decodedToken.userRoleID === 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
   
   isLoggedIn() : boolean {
