@@ -4,8 +4,69 @@ const getConnection = require('../db')
 const verifyToken = require('../middleware/verify-token');
 
 
-// get patient
+// get feedback
 
+router.get('/feedback_response', (req,res) => {
+
+    
+    const questionQueryString = `SELECT feedbackQuestionID, feedbackQuestion as Title
+    FROM feedbackquestion`
+
+    
+    getConnection().query(questionQueryString, req.body, async (err, results, fields) => {
+        
+
+        if (err) {
+            console.log("Failed to add to the database" + err);
+            return;
+        }
+
+        if (results.length === 0) {
+            res.json([])
+            return;
+        }
+
+        var i;
+        for (i = 0; i < results.length; i++) {
+
+            const responseQueryString = `SELECT feedback, COUNT(DISTINCT feedbackID) AS Count
+            FROM feedback
+            WHERE feedbackQuestionID = ?
+            GROUP BY feedback
+            ORDER BY feedback`
+
+            results[i].answer = await new Promise((resolve, reject) => {
+                getConnection().query(responseQueryString, [results[i].feedbackQuestionID], (err, answers, fields) => {
+                    if (err) reject("Failed to add to the database" + err);
+                    else resolve(answers);
+                })
+            });
+            
+        }
+
+        var j;
+        for (j = 0; j < results.length; j++) {
+            
+            var k;
+            answers = results[j].answer
+
+            for (k = 0; k < answers.length; k++) {
+                
+                results[j][`A${results[k].feedbackQuestionID}`] = answers[k].Count
+            }
+
+            delete results[j].answer;
+        }
+        
+        res.json(results)
+        
+    })
+
+});
+
+
+        
+// get patient
 router.post("/get_patient", (req, res) => {
     const user = req.body;
     const NHSno = user.Nhsno;
