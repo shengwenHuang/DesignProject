@@ -6,7 +6,7 @@ const verifyToken = require('../middleware/verify-token');
 
 // get feedback
 
-router.get('/feedback_response', (req,res) => {
+router.get('/feedback_response', verifyToken, (req,res) => {
 
     
     const questionQueryString = `SELECT feedbackQuestionID, feedbackQuestion as Title
