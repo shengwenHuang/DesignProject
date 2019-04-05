@@ -1,15 +1,12 @@
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <h1>User Management</h1>
 
 
-<p *ngFor="let u of u_obj">
-    {{u.userID}}
-</p>
 <div class="container">
   <button class="btn btn-secondary"  (click)="addUser()" style="margin-bottom: 2em">Add New User</button>
   <div class="card">
     <div class="card-body">
-      <table class="table">
+      <table class="table text-center">
         <caption><span class="glyphicon glyphicon-user" ></span> Admin</caption>
         <thead class="thead-dark">
           <tr>
@@ -22,7 +19,7 @@
             <th>User Role</th>
             <th>Status</th>
             <th></th>
-            <th></th>
+            <!-- <th></th> -->
           </tr>
         </thead>
         <tr *ngFor="let u of u_obj">
@@ -35,13 +32,55 @@
           <td>{{u.roleName}}</td>
           <td>{{u.description}}</td>
           <td>
-            <button class="btn btn-danger" (click)="delete(u)">Delete</button>
+            <button *ngIf="u.description=='current worker'" class="btn btn-danger" (click)="delete(u)">Remove</button>
           </td>
-          <td>
+          <!-- <td>
             <button class="btn btn-info" (click)="edit()">Edit</button>
-          </td>
+          </td> -->
         </tr>
       </table>
     </div>
   </div>
 </div>
+<<<<<<< HEAD
+=======
+
+<script>
+  $(function() {
+    $("tr").each(function(){
+        var value = $(this).find("td:eq(7)").text();
+        if($.trim(value.toLowerCase()) == 'current worker'){
+            $(this).addClass('current');  
+        }
+    });   
+  });
+</script>
+
+
+<!-- <h1 style="text-align: center;">Manage Users</h1>
+
+
+<div class="container mt-3" style="border: 2px cornflowerblue solid ; border-radius: 25px; padding-bottom: 4em">
+  <mat-tab-group mat-align-tabs="center">
+    
+    <mat-tab label="Add User">
+      <ng-template matTabContent>
+        <app-add-user></app-add-user>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab label="View Users">
+      <ng-template matTabContent>
+        <app-view-user></app-view-user>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab label="Remove User">
+      <ng-template matTabContent>
+        <app-remove-user></app-remove-user>
+      </ng-template>
+    </mat-tab>
+    
+  </mat-tab-group>
+</div> -->
+>>>>>>> dca4530c8eab4156ad2446dc84b8d78a96f6d498
