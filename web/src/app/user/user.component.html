@@ -19,7 +19,7 @@
             <th>User Role</th>
             <th>Status</th>
             <th></th>
-            <!-- <th></th> -->
+            <th></th>
           </tr>
         </thead>
         <tr *ngFor="let u of u_obj">
@@ -34,9 +34,9 @@
           <td>
             <button *ngIf="u.description=='current worker'" class="btn btn-danger" (click)="delete(u)">Remove</button>
           </td>
-          <!-- <td>
+          <td>
             <button class="btn btn-info" (click)="edit()">Edit</button>
-          </td> -->
+          </td>
         </tr>
       </table>
     </div>
