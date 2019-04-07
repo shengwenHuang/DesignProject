@@ -13,7 +13,7 @@ router.post('/login', (req, res) => {
     const user = req.body;
     const staffNo = user.staffNo;
     const password = user.password;
-    const queryString = "SELECT staffNo, userID, hashedPassword, userRoleID, statusID, firstname FROM nhsUsers WHERE staffNo = ?";
+    const queryString = "SELECT staffNo, userID, hashedPassword, userRoleID, statusID, firstname FROM nhsUsers WHERE statusID=1 AND staffNo = ?";
 
     getConnection().query(queryString, [staffNo], (err, results, fields) => {
         if (err) {
@@ -67,7 +67,9 @@ router.post('/login', (req, res) => {
 router.post('/register', verifyToken, (req, res) => {
     const user = req.body;
     const password = req.body.password;
+    console.log(user);
 
+    return;
     const queryCheckUser = `SELECT staffNo, description
     FROM nhsUsers
     INNER JOIN workingstatus on workingstatus.statusID = nhsUsers.statusID
@@ -111,7 +113,7 @@ router.post('/register', verifyToken, (req, res) => {
             const queryString = "INSERT INTO nhsUsers (staffNo, hashedPassword, firstname, lastname, email, phone, userRoleID, statusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
             console.log(user)
-            const insert = [user.staff_no, user.password, user.firstname, user.lastname, user.email, user.phone, userRoleID, 1]
+            const insert = [user.username, user.password, user.firstname, user.lastname, user.email, user.phone, userRoleID, 1]
             getConnection().query(queryString, insert, (err, results, fields) => {
                 if (err) {
                     console.log("Failed to add an user." + err);

@@ -17,7 +17,8 @@ export class ApiService {
 
   private getapiUrl: string = 'http://localhost:3000/questions';
   private addapiUrl: string = 'http://localhost:3000/add_question';
-  private deleteUrl: string = 'http://localhost:3000/delete_question/';
+  private deleteUrl: string = 'http://localhost:3000/delete_question';
+  private feedbackUrl: string = 'http://localhost:3000/feedback_response'
 
 
   constructor(
@@ -26,12 +27,15 @@ export class ApiService {
 
 
   getPatientInfo(user: object) {
-    console.log(user)
     return this.http.post(this.patientUrl, user)
   }
 
   getQuestionApi() {
     return this.http.get(this.getapiUrl);
+  }
+
+  getFeedbackApi() {
+    return this.http.get(this.feedbackUrl);
   }
 
   addQuestionDbApi(obj: object) {

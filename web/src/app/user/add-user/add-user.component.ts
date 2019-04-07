@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms'
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ApiService } from 'src/app/services/api.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -10,117 +12,56 @@ export class AddUserComponent implements OnInit {
 
   registerForm: FormGroup; 
 
-  validationMessages = {
-    'staff_username': {
-      'required': 'Staff username is required.',
-      'minlength': 'Staff username must be at least 6 characters.',
-    },
-    'password': {
-      'required': 'Password is required.',
-      'minlength': 'Password must be at least 8 characters.', //password.errors.minlength.requiredLength
-    },
-    'confirm_password': {
-      'required': 'Please confirm your password.',
-    },
-    'passwordGroup': {
-      'passwordMismatch': 'Password do not match.'
-    },
-    'firstname': {
-      'required': 'First name is required.'
-    },
-    'lastname': {
-      'required': 'Last name is required.'
-    },
-    'email': {
-      'required': 'Email is required.'
-    },
-    'phone': {
-      'required': 'Phone number is required.',
-      'pattern': 'Invalid phone number.',
-    },
-    'userRole': {
-      'required': 'Your role is required.',
-    },
-  };
-
-  formErrors = {
-    'staff_username': '',
-    'password': '',
-    'confirm_password': '',
-    'passwordGroup': '',
-    'firstname': '',
-    'lastname': '',
-    'email': '',
-    'phone': '',
-    'userRole': ''
-  };
-
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService) { }
+    private apiService: ApiService,
+    private router: Router) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
 
-      staff_username: ['', [Validators.required, Validators.minLength(6)]],
-      passwordGroup: this.fb.group({
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        confirm_password: ['', Validators.required],
-      }, { validator: matchPassword }),
+      username: ['', [Validators.required, , Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirm_password: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('^[+]447\d{9}$')]],
-      userRole: ['', Validators.required],
-    });
+      userRole: ['', Validators.required]
 
-    this.registerForm.valueChanges.subscribe((data) => {
-      this.logValidationErrors(this.registerForm);
-    });
+
+    })
   }
 
-  logValidationErrors(group: FormGroup = this.registerForm): void {
-    // Loop through each control key in the FormGroup
-    Object.keys(group.controls).forEach((key: string) => {
-      // Get the control. The control can be a nested form group
-      const abstractControl = group.get(key);
-      // If the control is nested form group, recursively call
-      // this same method
+  //   registerForm = this.fb.group({
+  //   staff_username: ['', Validators.required],
+  //   password: ['', [Validators.required, Validators.minLength(6)]],
+  //   confirm_password: ['', Validators.required],
+  //   firstname: ['', Validators.required],
+  //   lastname: ['', Validators.required],
+  //   email: ['', Validators.required, Validators.email],
+  //   phone: ['', [Validators.required, Validators.pattern('^[+]447\d{9}$')]],
+  //   userRole: ['', Validators.required]
+  // });
 
-      this.formErrors[key] = '';
-      if (abstractControl && !abstractControl.valid
-        && (abstractControl.touched || abstractControl.dirty)) {
-        // Get all the validation messages of the form control
-        // that has failed the validation
-        const messages = this.validationMessages[key];
-        // Find which validation has failed. For example required,
-        // minlength or maxlength. Store that error message in the
-        // formErrors object. The UI will bind to this object to
-        // display the validation errors
-        for (const errorKey in abstractControl.errors) {
-          if (errorKey) {
-            this.formErrors[key] += messages[errorKey] + ' ';
-          }
-        }
-      }
+  goBack() {
+    this.router.navigate(["user"])
+  }
 
-      if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
-        // If the control is a FormControl
-      } 
-      if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
-      }
-    });
+  getError(id:string) {
+    return this.registerForm.get(id);
   }
 
   add_user() {
-    this.logValidationErrors(this.registerForm);
-    console.log(this.formErrors);
     if (this.registerForm.invalid) {
-      alert("Please complete the form.");
+      // alert("Please complete the form.");
       return;
     }
+    if (this.registerForm.value.password != this.registerForm.value.confirm_password) {
+      alert("Password does not match.");
+      return;
+    }
+    
     this.apiService.register(this.registerForm.value)
     .subscribe(
       (data) => console.log(data),
@@ -130,15 +71,5 @@ export class AddUserComponent implements OnInit {
       }
     );
   }
-}
 
-function matchPassword(group: AbstractControl): { [key: string]: any } | null {
-  const passwordControl = group.get('password');
-  const confirmPasswordControl = group.get('confirm_password');
-
-  if (passwordControl.value === confirmPasswordControl.value || confirmPasswordControl.pristine) {
-    return null;
-  } else {
-    return { 'passwordMismatch': true };
-  }
 }

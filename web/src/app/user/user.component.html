@@ -1,19 +1,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <h1>User Management</h1>
 
-<div class="container add-question">
-  <div class="card" style="margin-top: 1.5em">
-    <div class="card-body">
-      <h5>New User</h5>
-      <div>
-        <button class="btn btn-primary btn-fill"  (click)="addUser()" >Add User</button>
-        <app-add-user *ngIf="isNewUser"></app-add-user>
-      </div>
-    </div>
-  </div>
-</div >
 
 <div class="container">
+  <button class="btn btn-secondary"  (click)="addUser()" style="margin-bottom: 2em">Add New User</button>
   <div class="card">
     <div class="card-body">
       <table class="table text-center">
@@ -29,7 +19,7 @@
             <th>User Role</th>
             <th>Status</th>
             <th></th>
-            <!-- <th></th> -->
+            <th></th>
           </tr>
         </thead>
         <tr *ngFor="let u of u_obj">
@@ -44,9 +34,9 @@
           <td>
             <button *ngIf="u.description=='current worker'" class="btn btn-danger" (click)="delete(u)">Remove</button>
           </td>
-          <!-- <td>
+          <td>
             <button class="btn btn-info" (click)="edit()">Edit</button>
-          </td> -->
+          </td>
         </tr>
       </table>
     </div>
