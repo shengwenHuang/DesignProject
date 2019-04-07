@@ -26,6 +26,14 @@ export class FeedbackPage implements OnInit {
     )
   };
 
+  // btnActivate(ionicButton) {
+  //   if(ionicButton._color === 'primary')
+  //     ionicButton.color =  'danger';
+  //   else {
+
+  //   }
+  // }
+
   option(feedback:number, pos:number):void {
     console.log(feedback, pos);
     this.feedbackQuestion[pos - 1].feedback = feedback;

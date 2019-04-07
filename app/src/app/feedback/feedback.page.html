@@ -5,28 +5,33 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let q of  feedbackQuestion">
+  <ion-card *ngFor="let q of feedbackQuestion">
 
     <ion-card-content>
       {{q.feedbackQuestionID}}: {{q.feedbackQuestion}}.
     </ion-card-content>
-    <ion-button color="danger" (click)=option(1,q.feedbackQuestionID) >
-      <i class="far fa-angry" style="font-size: 35px"></i>
+    <ion-button #first fill="clear" (click)="option(1,q.feedbackQuestionID); btnActivate(first)" >      
+      <ion-icon class='button angry' src="assets/icon/angry.svg"></ion-icon>
+      <!-- <i class="far fa-angry" style="font-size: 35px"></i> -->
     </ion-button>
     
-    <ion-button color="medium" (click)=option(2,q.feedbackQuestionID)>
-      <i class="far fa-frown" style="font-size: 35px"></i>
+    <ion-button fill="clear" (click)="option(2,q.feedbackQuestionID)">
+      <ion-icon class='button sad'  src="assets/icon/sadd.svg"></ion-icon>
+      <!-- <i class="far fa-frown" style="font-size: 35px"></i> -->
     </ion-button>
-    <ion-button color="warning" (click)=option(3,q.feedbackQuestionID)>
-      <i class="far fa-meh" style="font-size: 35px"></i>
+    <ion-button fill="clear" (click)="option(3,q.feedbackQuestionID)">
+      <ion-icon class='button neutral'  src="assets/icon/sad.svg"></ion-icon>
+      <!-- <i class="far fa-meh" style="font-size: 35px"></i> -->
     </ion-button>
 
-    <ion-button color="primary" (click)=option(4,q.feedbackQuestionID)>
-      <i class="far fa-smile" style="font-size: 35px"></i>
+    <ion-button fill="clear" (click)="option(4,q.feedbackQuestionID)">
+      <ion-icon class='button happy'  src="assets/icon/happy.svg"></ion-icon>
+      <!-- <i class="far fa-smile" style="font-size: 35px"></i> -->
     </ion-button>
     
-    <ion-button color="success" (click)=option(5,q.feedbackQuestionID)>
-      <i class="far fa-smile-beam" style="font-size: 35px"></i>
+    <ion-button fill="clear" (click)="option(5,q.feedbackQuestionID)">
+      <ion-icon class='button in-love'  src="assets/icon/in-love.svg"></ion-icon>
+      <!-- <i class="far fa-smile-beam" style="font-size: 35px"></i> -->
     </ion-button>
 
   </ion-card>
