@@ -4,6 +4,58 @@ const getConnection = require('../db')
 const verifyToken = require('../middleware/verify-token');
 
 
+
+
+router.get('/feedback_health_anws', (req,res) => {
+
+    
+    const questionQueryString = `SELECT q.questionID, q.question, COUNT(a.answer) as yes
+    FROM question as q, answer as a
+    WHERE q.questionID = a.questionID AND q.type = 1 AND answer = "yes"
+    GROUP BY q.questionID
+    ORDER BY q.questionID`
+
+    
+    getConnection().query(questionQueryString, verifyToken, (err, results, fields) => {
+        
+
+        if (err) {
+            console.log("Failed to add to the database" + err);
+            return;
+        }
+
+        if (results.length === 0) {
+            res.json([])
+            return;
+        }
+
+    
+        const responseQueryString = `SELECT COUNT(a.answer) as no
+        FROM question as q, answer as a
+        WHERE q.questionID = a.questionID AND q.type = 1 AND answer = "no"
+        GROUP BY q.questionID
+        ORDER BY q.questionID`
+
+        getConnection().query(responseQueryString, (err, nums_no, fields) => {
+            if (err) {
+                console.log("Failed to add to the database" + err);
+            }
+
+            var i;
+
+            for (i = 0; i < results.length; i++) {
+                results[i].no = nums_no[i].no
+            }
+            
+
+            res.json(results)
+
+        })
+        
+    })
+
+});
+
 // get feedback
 
 router.get('/feedback_response', verifyToken, (req,res) => {
