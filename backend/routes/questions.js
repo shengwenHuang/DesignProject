@@ -5,7 +5,7 @@ const verifyToken = require('../middleware/verify-token');
 
 
 
-
+// Count number of yes and no
 router.get('/feedback_health_anws', (req,res) => {
 
     
