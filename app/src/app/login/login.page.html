@@ -8,7 +8,7 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Welcome</ion-card-title>
+      <ion-card-title>Login</ion-card-title>
     </ion-card-header>
     
     <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -22,7 +22,7 @@
               <ion-input type="text" formControlName="lastname"></ion-input>
             </ion-item>
       </ion-list>
-      <ion-button fill="solid" (click)="login()">Login</ion-button>
+      <ion-button fill="solid" color="primary" (click)="login()">Login</ion-button>
     </form>
   </ion-card>
 </ion-content>
