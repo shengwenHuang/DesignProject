@@ -132,9 +132,9 @@ router.post('/register', verifyToken, (req, res) => {
 
 
 router.post('/remove_user', verifyToken, (req, res) => {
-    const staffNo = req.body.staffNo;
-    const queryString = "SELECT statusID FROM nhsUsers WHERE staffNo = ?";
-    getConnection().query(queryString, [staffNo], (err, results, fields) => {
+    const userID = req.body.userID;
+    const queryString = "SELECT statusID FROM nhsUsers WHERE userID = ?";
+    getConnection().query(queryString, [userID], (err, results, fields) => {
         if (err) {
             console.log("Failed to connect to the database." + err);
             return;
@@ -150,8 +150,8 @@ router.post('/remove_user', verifyToken, (req, res) => {
             return;
         }
 
-        const removeQueryString = "UPDATE nhsUsers SET statusID = 2 WHERE staffNo = ?"
-        getConnection().query(removeQueryString, [staffNo], (err, results, fields) => {
+        const removeQueryString = "UPDATE nhsUsers SET statusID = 2 WHERE userID = ?"
+        getConnection().query(removeQueryString, [userID], (err, results, fields) => {
             if (err) {
                 console.log("Failed to connect to the database." + err);
                 return;
@@ -192,18 +192,27 @@ router.get('/get_user', verifyToken, (req, res) => {
 
 })
 
-// edit what?
-router.post('/edit', verifyToken, (req, res) => {
-
-    const queryString = ``;
-    getConnection().query(queryString, (err, results, fields) => {
+// edit status of users
+router.post('/edit_user', verifyToken, (req, res) => {
+    console.log("in");
+    const userID = req.body.userID;
+    const userRoleID = req.body.userRoleID;
+    console.log(userID);
+    queryString = ''
+    if (userRoleID === 1) {
+        queryString = `UPDATE nhsUsers SET userRoleID = 2 WHERE userID = ?`; //change to nurses
+        console.log("1");
+    } else {
+        queryString = `UPDATE nhsUsers SET userRoleID = 1 WHERE userID = ?`; //change to admin
+        console.log("2");
+    }
+    getConnection().query(queryString, [userID], (err, results, fields) => {
         if (err) {
             console.log("Failed to connect to the database." + err);
             return;
-        }
-
-        res.json(results);
-
+        } 
+        console.log(results);
+        // res.send("success");
     })
 
 })
