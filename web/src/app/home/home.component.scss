@@ -6,16 +6,6 @@ h2 {
     text-align: center;
 }
 
-// .hero-image {
-//     background-image: url("../../assets/img/IMG_0130.jpeg");
-//     // -webkit-background-size: cover;
-//     // -moz-background-size: cover;
-//     // background-size: cover;
-//     // width: auto;
-//     // height: auto;
-//     background-position: center;
-//     background-repeat: no-repeat;
-//     background-size: cover;
-//     position: relative;
-//     height: 100%;
-// }
+.page-header .filter::after {
+    background-color: rgba(0, 0, 0, 0.5);
+}

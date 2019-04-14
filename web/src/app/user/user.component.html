@@ -35,7 +35,7 @@
             <button *ngIf="u.description=='current worker'" class="btn btn-danger" (click)="delete(u)">Remove</button>
           </td>
           <td>
-            <button class="btn btn-info" (click)="edit_user(u)">Edit</button>
+            <button class="{{ u.userRoleID == 1 ? 'btn btn-info' : 'btn btn-success' }}" (click)="edit_user(u)">{{ u.userRoleID == 1 ? 'Nurse' : 'Admin' }}</button>
           </td>
         </tr>
       </table>
