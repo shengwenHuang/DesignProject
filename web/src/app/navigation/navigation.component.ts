@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -7,10 +8,12 @@ import { ApiService } from '../services/api.service'
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService) { }
+
 
   ngOnInit() {
-    console.log(this.apiService.isLoggedIn())
+
   }
 
 }

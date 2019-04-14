@@ -12,6 +12,7 @@ export class ApiService {
   private loginUrl: string = 'http://localhost:3000/login';
   private registerUrl: string = 'http://localhost:3000/register';
   private removeUserUrl: string = 'http://localhost:3000/remove_user';
+  private editUserUrl: string = 'http://localhost:3000/edit_user';
   private getUserUrl: string = 'http://localhost:3000/get_user';
   private patientUrl: string = 'http://localhost:3000/get_patient';
 
@@ -66,6 +67,11 @@ export class ApiService {
     return this.http.post(this.removeUserUrl, user);
   }
 
+  edit_user(user: object) {
+    return this.http.post(this.editUserUrl, user);
+  }
+
+
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/login'])
@@ -85,6 +91,11 @@ export class ApiService {
   isLoggedIn() : boolean {
     return !!localStorage.getItem('token');
   
+  }
+  
+  isHome(): boolean {
+    return window.location.pathname === "/home"
+
   }
   getToken() {
     return localStorage.getItem('token');

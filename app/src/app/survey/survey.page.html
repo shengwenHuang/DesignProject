@@ -7,20 +7,18 @@
 <ion-content padding>
 
   <ion-card *ngFor="let q of all_question; let i = index">
-    <ion-card-header>
-      <ion-card-title style="font-size: 15px">
-        ({{i + 1}}) {{q.question}}
-      </ion-card-title>
-    </ion-card-header>
+    <ion-card-content>
+      {{i + 1}}. {{q.question}}
+    </ion-card-content>
 
     <ion-card-content>
-      <div *ngIf="q.type === 'yes/no'">
-        <ion-button color="success" style="padding-right: 2em" (click)="yes(i)" >Yes</ion-button>
+      <div *ngIf="q.type === 'yes/no'" style="text-align: center">
+        <ion-button color="primary" style="padding-right: 2em" (click)="yes(i)" >Yes</ion-button>
         <ion-button color="danger" (click)="no(i)">No</ion-button>
       </div>
       
-      <ion-item *ngIf="q.type === 'free text'">
-        <ion-label position="floating">Write here ...</ion-label>
+      <ion-item *ngIf="q.type === 'free text'" style="margin: 5px">
+        <ion-label position="floating" style="color: #66615b; font-size: 13px">Write here ...</ion-label>
         <ion-textarea [(ngModel)] = "q.answers"></ion-textarea>
       </ion-item>
     </ion-card-content>
@@ -28,7 +26,7 @@
   </ion-card>
 
   <div style="position: relative; text-align: center;">
-    <ion-button (click)="submit()" color="tertiary" expand="block">Submit</ion-button> 
+    <ion-button (click)="submit()" color="success" expand="block">Submit</ion-button> 
   </div>
 
 </ion-content>
