@@ -88,6 +88,11 @@ export class ApiService {
     return !!localStorage.getItem('token');
   
   }
+  
+  isHome(): boolean {
+    return window.location.pathname === "/home"
+
+  }
   getToken() {
     return localStorage.getItem('token');
   }
