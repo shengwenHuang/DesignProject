@@ -3,12 +3,12 @@ import { Chart} from 'chart.js';
 import { ApiService } from '../services/api.service';
 
 @Component({
-    selector: 'app-feedback',
-    templateUrl: './feedback.component.html',
-    styleUrls: ['./feedback.component.scss']
+    selector: 'app-surveyresults',
+    templateUrl: './surveyresults.component.html',
+    styleUrls: ['./surveyresults.component.scss']
 })
 
-export class FeedbackComponent implements OnInit {
+export class SurveyresultsComponent implements OnInit {
   feedback_obj: any = [];
 
   // responses: any = [

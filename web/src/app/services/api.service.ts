@@ -39,7 +39,6 @@ export class ApiService {
   }
 
   addQuestionDbApi(obj: object) {
-
     return this.http.post(this.addapiUrl, obj);
   }
 
@@ -47,9 +46,14 @@ export class ApiService {
     return this.http.get(`${this.deleteUrl}${id}`);
   }
 
+  // deleteQuestionApi(obj: object) {
+  //   return this.http.post(`${this.deleteUrl}`);
+  // }
+
   get_user() {
     return this.http.get(this.getUserUrl)
-  } 
+  }
+
   login(user: object) {
     return this.http.post<any>(this.loginUrl, user);
   }
@@ -61,7 +65,6 @@ export class ApiService {
   remove_user(user: object) {
     return this.http.post(this.removeUserUrl, user);
   }
-
 
   logout(): void {
     localStorage.removeItem('token');

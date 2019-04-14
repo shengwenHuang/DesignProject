@@ -3,37 +3,50 @@ const router = express.Router();
 const getConnection = require('../db')
 const verifyToken = require('../middleware/verify-token');
 
-
 // get feedback
 
-router.get('/feedback_response', verifyToken, (req,res) => {
+router.get("/feedback_response", (req,res) => {
+// router.get("/feedback_response", verifyToken, (req,res) => {
 
-    
     const questionQueryString = `SELECT feedbackQuestionID, feedbackQuestion as Title
     FROM feedbackquestion`
 
-    
-    getConnection().query(questionQueryString, req.body, async (err, results, fields) => {
-        
+// from questions
+    // getConnection().query(queryString, (err, results, fields) => {
+    //     if  (err) {
+    //         console.log("Failed to query the question" + err)
+    //         res.sendStatus(500);
+    //         return;
+    //     }
+    //     questions = results;
 
+// original line
+    // getConnection().query(questionQueryString, req.body, async (err, results, fields) => {
+
+    getConnection().query(questionQueryString, async (err, results, fields) => {
+        
         if (err) {
             console.log("Failed to add to the database" + err);
             return;
         }
 
         if (results.length === 0) {
+            console.log("no results")
             res.json([])
             return;
         }
+
+        console.log("results.length",results.length)
 
         var i;
         for (i = 0; i < results.length; i++) {
 
             const responseQueryString = `SELECT feedback, COUNT(DISTINCT feedbackID) AS Count
             FROM feedback
-            WHERE feedbackQuestionID = ?
             GROUP BY feedback
             ORDER BY feedback`
+
+            console.log("i",i)
 
             results[i].answer = await new Promise((resolve, reject) => {
                 getConnection().query(responseQueryString, [results[i].feedbackQuestionID], (err, answers, fields) => {
@@ -41,7 +54,7 @@ router.get('/feedback_response', verifyToken, (req,res) => {
                     else resolve(answers);
                 })
             });
-            
+            console.log(results[i].answer);
         }
 
         var j;
@@ -59,6 +72,8 @@ router.get('/feedback_response', verifyToken, (req,res) => {
         }
         
         res.json(results)
+        console.log(results.length)
+        console.log(res)
         
     })
 
@@ -144,11 +159,39 @@ router.post("/get_patient", (req, res) => {
 
 
 // Adding new questions
-router.post("/add_question", verifyToken, (req, res) => {
+router.post("/add_question", (req, res) => {
 
     const new_question = req.body
-    const queryString = "INSERT INTO question SET ? "
+    const new_ID = req.body.questionID
+// console.log("new_question", new_question)
+// console.log("new question ID", new_question.questionID)
+    const queryCheck = "SELECT * FROM question WHERE questionID = ?"
+    getConnection().query(queryCheck, new_ID, (err, results, fields) => {
+        if (err) {
+            console.log("Couldn't check for Dupes" + err);
+            res.sendStatus(500);
+            return;
+        }
+        console.log("results from checking query", results)
+        console.log("new_ID", new_ID)
+        console.log("results length", results.length, "results check:", (results.length > 0))
+        if (results.length > 0) {
+    //         //Delete the entry first:
+    //     const queryString = "DELETE FROM question WHERE questionID = ?"
+    //     getConnection().query(queryString, new_ID, (err, results, fields) => {
+    //     if (err) {
+    //         console.log("Failed to delete the question." + err);
+    //         return;
+    //     }
+    //     res.send();
+    //     console.log("Succesfully deleted the question.");
 
+    // })
+    
+        }
+    })
+
+    const queryString = "INSERT INTO question SET ? "
     getConnection().query(queryString, req.body, (err, results, fields) => {
         if (err) {
             console.log("Failed to add a new question." + err);
@@ -157,18 +200,29 @@ router.post("/add_question", verifyToken, (req, res) => {
         }
 
         // Just updating the json which was
+        // console.log("results", results)
+        // console.log("new_question", new_question)
+        // console.log("new question question ID", new_question.questionID)
+        // console.log("results.insertId", results.insertId)
+        // if (results.insertId != 0) {new_question.questionID = results.insertId}
         new_question.questionID = results.insertId
-
+        console.log("new question ID", new_question.questionID)
         res.send(new_question);
+        // res.send()
         console.log("Success, you have added a new question into the database.");
+        // route.reload 
     })
 })
 
-// Deleting quesiton
-router.get("/delete_question/:id", verifyToken, (req, res) => {
+// Deleting question
+router.get("/delete_question:id", (req, res) => {
+// router.post("/delete_question", (req, res) => {
 
-    const queryString = "DELETE FROM question WHERE questionID = ?"
-    getConnection().query(queryString, req.params.id, (err, results, fields) => {
+    // const delete_question = req.body
+        const queryString = "DELETE FROM question WHERE questionID = ?"
+        getConnection().query(queryString, req.params.id, (err, results, fields) => {
+        // getConnection().query(queryString, req.body, (err, results, fields) => {
+
         if (err) {
             console.log("Failed to delete the question." + err);
             return;
@@ -180,7 +234,7 @@ router.get("/delete_question/:id", verifyToken, (req, res) => {
 })
 
 // Obtain all the question
-router.get("/questions", verifyToken, (req, res) => {
+router.get("/questions", (req, res) => {
 
     const queryString = `SELECT questionID, question, questiontype.type, pos
     FROM question
@@ -200,12 +254,14 @@ router.get("/questions", verifyToken, (req, res) => {
             questions[i]["answers"] = ""
         }
 
-        console.log("yaaaiii")
+        // console.log("yaaaiii")
         res.json(questions)
+        // console.log(questions)
+        // console.log(questions.length)
     });
 
 
 });
 
 
-module.exports = router;
+module.exports = router

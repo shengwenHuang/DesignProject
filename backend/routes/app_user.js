@@ -4,7 +4,6 @@ const getConnection = require('../db')
 const jwt = require('jsonwebtoken')
 const verifyToken = require('../middleware/verify-token');
 
-
 router.post('/new_survey', verifyToken, (req, res) => {
 
     const patientID = req.userData.userID;
@@ -142,7 +141,7 @@ router.post('/add_feedback', verifyToken, (req, res) => {
 
     })
     res.status(200).json({
-        message: "Suvey Completed"
+        message: "Survey Completed"
     })
 })
 
