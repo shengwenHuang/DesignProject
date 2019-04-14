@@ -20,6 +20,7 @@ export class ApiService {
   private addapiUrl: string = 'http://localhost:3000/add_question';
   private deleteUrl: string = 'http://localhost:3000/delete_question';
   private feedbackUrl: string = 'http://localhost:3000/feedback_response'
+  private assessmentUrl: string = 'http://localhost:3000/assessment_ans'
 
 
   constructor(
@@ -37,6 +38,10 @@ export class ApiService {
 
   getFeedbackApi() {
     return this.http.get(this.feedbackUrl);
+  }
+
+  getAssessmentApi() {
+    return this.http.get(this.assessmentUrl);
   }
 
   addQuestionDbApi(obj: object) {

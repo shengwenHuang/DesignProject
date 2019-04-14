@@ -4,7 +4,7 @@
 <div class="container add-question">
   <div class="card" style="margin-top: 1.5em">
     <div class="card-body" style="text-align: right">
-      <input id="edit_ID" type="text" style="width:8%; float:left; text-align:center" value="" placeholder="ID" class="form-control" [(ngModel)]="input_ID">
+      <input id="edit_ID" type="number" style="width:8%; float:left; text-align:center" value="" placeholder="ID" class="form-control" [(ngModel)]="input_ID">
       <input id="edit_question" type="text" style="width:90%; float:left" value="" placeholder="Please Enter Question Text Here..." class="form-control" [(ngModel)]="input_question">
       <div style="padding-top: 10px">
         <button class="btn btn-success btn-fill"  (click)="addQuestion()">Submit</button>

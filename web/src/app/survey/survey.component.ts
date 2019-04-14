@@ -18,13 +18,13 @@ export class SurveyComponent implements OnInit {
 
   q_obj: any = [];
   input_question: string;
-  input_ID: string;
+  input_ID: number;
   
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {    
     this.input_question = '';
-    this.input_ID = '';
+    this.input_ID = null;
     this.apiService.getQuestionApi()
     .subscribe(
       data => this.q_obj = data,
@@ -59,7 +59,7 @@ registerOnChange(fn) {
   this.onChange = (obj) => fn(obj);
 }
 
-  async addQuestion(): void {
+  async addQuestion(): Promise<void> {
 
     // for(var i=0;i<this.q_obj.length;i++)
     //     {

@@ -6,7 +6,7 @@ const verifyToken = require('../middleware/verify-token');
 
 
 // Count number of yes and no
-router.get('/feedback_health_anws', (req,res) => {
+router.get('/assessment_ans', (req,res) => {
 
     
     const questionQueryString = `SELECT q.questionID, q.question, COUNT(a.answer) as yes
@@ -16,7 +16,7 @@ router.get('/feedback_health_anws', (req,res) => {
     ORDER BY q.questionID`
 
     
-    getConnection().query(questionQueryString, verifyToken, (err, results, fields) => {
+    getConnection().query(questionQueryString, (err, results, fields) => {
         
 
         if (err) {
@@ -58,48 +58,34 @@ router.get('/feedback_health_anws', (req,res) => {
 
 // get feedback
 
-router.get("/feedback_response", (req,res) => {
-// router.get("/feedback_response", verifyToken, (req,res) => {
+router.get('/feedback_response', verifyToken, (req,res) => {
 
+    
     const questionQueryString = `SELECT feedbackQuestionID, feedbackQuestion as Title
     FROM feedbackquestion`
 
-// from questions
-    // getConnection().query(queryString, (err, results, fields) => {
-    //     if  (err) {
-    //         console.log("Failed to query the question" + err)
-    //         res.sendStatus(500);
-    //         return;
-    //     }
-    //     questions = results;
-
-// original line
-    // getConnection().query(questionQueryString, req.body, async (err, results, fields) => {
-
-    getConnection().query(questionQueryString, async (err, results, fields) => {
+    
+    getConnection().query(questionQueryString, req.body, async (err, results, fields) => {
         
+
         if (err) {
             console.log("Failed to add to the database" + err);
             return;
         }
 
         if (results.length === 0) {
-            console.log("no results")
             res.json([])
             return;
         }
-
-        console.log("results.length",results.length)
 
         var i;
         for (i = 0; i < results.length; i++) {
 
             const responseQueryString = `SELECT feedback, COUNT(DISTINCT feedbackID) AS Count
             FROM feedback
+            WHERE feedbackQuestionID = ?
             GROUP BY feedback
             ORDER BY feedback`
-
-            console.log("i",i)
 
             results[i].answer = await new Promise((resolve, reject) => {
                 getConnection().query(responseQueryString, [results[i].feedbackQuestionID], (err, answers, fields) => {
@@ -107,7 +93,7 @@ router.get("/feedback_response", (req,res) => {
                     else resolve(answers);
                 })
             });
-            console.log(results[i].answer);
+            
         }
 
         var j;
@@ -125,8 +111,6 @@ router.get("/feedback_response", (req,res) => {
         }
         
         res.json(results)
-        console.log(results.length)
-        console.log(res)
         
     })
 

@@ -11,20 +11,9 @@ import { ApiService } from '../services/api.service';
 export class FeedbackComponent implements OnInit {
   feedback_obj: any = [];
 
-  // responses: any = [
-  //   {"Title": "You signed in using the self-check in kiosk and found it easy to use?", "A1": 50, "A2": 40 ,"A3": 30, "A4": 50, "A5": 20},
-  //   {"Title": "The POAC waiting area was comfortable", "A1": 32, "A2": 22 ,"A3": 32, "A4": 52, "A5": 62 },
-  //   {"Title": "You were kept informed and received all the information/instructions you needed", "A1": 65, "A2": 15 ,"A3": 35, "A4": 55, "A5": 45 },
-  //   {"Title": "You were able to complete the screening questions on the iPad/mobile device", "A1": 57, "A2": 27 ,"A3": 37, "A4": 27, "A5": 7},
-  //   {"Title": "You would recommend our POAC service to friends and family", "A1": 32, "A2": 22 ,"A3": 12, "A4": 52, "A5": 22 },
-  // ]
-
     constructor(private apiService: ApiService) { }
   
     async ngOnInit() {
-
-      // this.feedback_obj = await this.apiService.getFeedbackApi().toPromise();
-      // console.log('this.feedback_obj',this.feedback_obj)
 
     }
 
@@ -86,7 +75,7 @@ export class FeedbackComponent implements OnInit {
           type: "bar",
           fontSize: 15,
           data: {
-            labels: ["Strongly Disagree", "Disagree", "Neither", "Agree", "Strongly Agree"],
+            labels: ["S. Disagree", "Disagree", "Neither", "Agree", "S. Agree"],
             datasets: [
               {
                 label: "# of Respondent(s)",
@@ -124,7 +113,7 @@ export class FeedbackComponent implements OnInit {
             scales: {
               xAxes: [{
                   ticks: {
-                      fontSize: 15,
+                      fontSize: 12,
                       fontStyle: "bold"
                   }
               }],
