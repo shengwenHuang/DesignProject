@@ -9,13 +9,10 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
 
   constructor(
-    private apiService: ApiService,
-    private router: Router) { }
+    private apiService: ApiService) { }
 
-  
 
   ngOnInit() {
-    console.log(window.location.pathname)
 
   }
 
