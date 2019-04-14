@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http'
 })
 export class ApiService {
 
-  currentHistory: any;
+  currentHistory: any = [];
 
   private questionUrl = 'http://localhost:3000/questions';
   private feedbackQuesUrl = 'http://localhost:3000/app/feedback_ques';

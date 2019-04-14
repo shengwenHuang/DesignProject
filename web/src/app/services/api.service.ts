@@ -12,6 +12,7 @@ export class ApiService {
   private loginUrl: string = 'http://localhost:3000/login';
   private registerUrl: string = 'http://localhost:3000/register';
   private removeUserUrl: string = 'http://localhost:3000/remove_user';
+  private editUserUrl: string = 'http://localhost:3000/edit_user';
   private getUserUrl: string = 'http://localhost:3000/get_user';
   private patientUrl: string = 'http://localhost:3000/get_patient';
 
@@ -66,6 +67,14 @@ export class ApiService {
     return this.http.post(this.removeUserUrl, user);
   }
 
+<<<<<<< HEAD
+=======
+  edit_user(user: object) {
+    return this.http.post(this.editUserUrl, user);
+  }
+
+
+>>>>>>> 2e040aba15881254922ef50dd2a94991a4df2141
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/login'])

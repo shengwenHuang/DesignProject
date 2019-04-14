@@ -32,7 +32,6 @@ export class HistoryPage implements OnInit {
   }
 
   viewHistory(history: object) {
- 
     this.apiService.setCurrentHistory(history)
     this.router.navigate(['/tabs/single-history'])
 

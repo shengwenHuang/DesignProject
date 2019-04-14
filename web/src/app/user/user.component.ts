@@ -39,20 +39,20 @@ export class UserComponent implements OnInit {
   }
 
   delete(user: any): void {
-    this.apiService.remove_user(user.userID)
+    this.apiService.remove_user(user)
     .subscribe(
-      data => this.u_obj.splice(this.u_obj.indexOf(user) , 1),
+      data => this.u_obj = data,
       err => console.log(err)
     );
   }
 
-  // edit(): void {
-  //   this.apiService.remove_user(user.userID)
-  //   .subscribe(
-  //     data => this.u_obj.splice(this.u_obj.indexOf(user) , 1),
-  //     err => console.log(err)
-  //   );
-  // }
+  edit_user(user: any): void {
+    this.apiService.edit_user(user)
+    .subscribe(
+      data => this.u_obj = data,
+      err => console.log(err)
+    );
+  }
 }
 
 

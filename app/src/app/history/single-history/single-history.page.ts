@@ -9,14 +9,16 @@ import { ApiService } from 'src/app/services/api.service';
 export class SingleHistoryPage implements OnInit {
 
 
-  history: any;
+  history: any = [];
   constructor(private apiService: ApiService) { }
+
+  ngOnInit() {
+  }
 
   ionViewWillEnter() {
     this.history = this.apiService.currentHistory;
   }
 
-  ngOnInit() {
-  }
+
 
 }
