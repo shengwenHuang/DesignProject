@@ -130,42 +130,6 @@ router.post('/register', verifyToken, (req, res) => {
 
 })
 
-
-router.post('/remove_user', verifyToken, (req, res) => {
-    const userID = req.body.userID;
-    const queryString = "SELECT statusID FROM nhsUsers WHERE userID = ?";
-    getConnection().query(queryString, [userID], (err, results, fields) => {
-        if (err) {
-            console.log("Failed to connect to the database." + err);
-            return;
-        }
-
-        if (results.length === 0) {
-            console.log("NHS Staff does not exist.")
-            // res.status(401)
-            return;
-        }
-        if (results[0].statusID === 2) {
-            console.log("This is an ex-employee.");
-            return;
-        }
-
-        const removeQueryString = "UPDATE nhsUsers SET statusID = 2 WHERE userID = ?"
-        getConnection().query(removeQueryString, [userID], (err, results, fields) => {
-            if (err) {
-                console.log("Failed to connect to the database." + err);
-                return;
-            } else {
-                res.send("success");
-            }
-
-        })
-
-    })
-
-})
-
-
 // Get all the user
 router.get('/get_user', verifyToken, (req, res) => {
 
@@ -175,7 +139,7 @@ router.get('/get_user', verifyToken, (req, res) => {
         })
     }
 
-    const queryString = `SELECT u.staffNo, u.firstname, u.lastname, u.email, u.phone, r.roleName, s.description
+    const queryString = `SELECT u.userID, u.staffNo, u.firstname, u.lastname, u.email, u.phone, r.roleName, u.userRoleID, s.description
     FROM nhsUsers AS u, userRole AS r, workingStatus AS s
     WHERE u.userRoleID = r.roleID 
     AND s.statusID = u.statusID
@@ -194,29 +158,59 @@ router.get('/get_user', verifyToken, (req, res) => {
 
 // edit status of users
 router.post('/edit_user', verifyToken, (req, res) => {
-    console.log("in");
     const userID = req.body.userID;
     const userRoleID = req.body.userRoleID;
-    console.log(userID);
-    queryString = ''
+    var queryString = ''
     if (userRoleID === 1) {
         queryString = `UPDATE nhsUsers SET userRoleID = 2 WHERE userID = ?`; //change to nurses
-        console.log("1");
+        console.log("userRoleID = 1");
     } else {
         queryString = `UPDATE nhsUsers SET userRoleID = 1 WHERE userID = ?`; //change to admin
-        console.log("2");
+        console.log("userRoleID = 2");
     }
     getConnection().query(queryString, [userID], (err, results, fields) => {
         if (err) {
-            console.log("Failed to connect to the database." + err);
-            return;
+            return console.error("Failed to connect to the database." + err);
         } 
         console.log(results);
-        // res.send("success");
     })
 
 })
 
+// make a user former worker
+router.post('/remove_user', verifyToken, (req, res) => {
+    const userID = req.body.userID;
+    console.log(userID);
+    const queryString = "SELECT statusID FROM nhsUsers WHERE userID = ?";
+    getConnection().query(queryString, [userID], (err, results, fields) => {
+        if (err) {
+            console.log("Failed to connect to the database." + err);
+            return;
+        }
 
+        if (results.length === 0) {
+            console.log("NHS Staff does not exist.")
+            // res.status(401)
+            return;
+        }
+        
+        // does not show the button if it's an ex-employee
+        // if (results[0].statusID === 2) {
+        //     console.log("This is an ex-employee.");
+        //     return;
+        // }
+
+        const removeQueryString = "UPDATE nhsUsers SET statusID = 2 WHERE userID = ?"
+        getConnection().query(removeQueryString, [userID], (err, results, fields) => {
+            if (err) {
+                console.log("Failed to connect to the database." + err);
+                return;
+            } 
+            console.log(results);
+        })
+
+    })
+
+})
 
 module.exports = router;
