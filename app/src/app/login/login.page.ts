@@ -21,7 +21,6 @@ export class LoginPage implements OnInit {
 
 
   ngOnInit() {
-    console.log(Date().slice(0, 19).replace('T', ' '))
     this.loginForm = this.fb.group({
       NHSno : ['', Validators.required],
       lastname : ['', Validators.required]
