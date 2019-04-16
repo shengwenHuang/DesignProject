@@ -1,3 +1,5 @@
+// This file is adapted from source https://csharp-video-tutorials.blogspot.com/2018/10/angular-reactive-forms-cross-field.html
+// and http://csharp-video-tutorials.blogspot.com/2018/10/move-validation-logic-to-component.html
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms'
 import { ApiService } from 'src/app/services/api.service';

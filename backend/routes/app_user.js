@@ -9,10 +9,10 @@ router.post('/new_survey', verifyToken, (req, res) => {
 
     const patientID = req.userData.userID;
     const data = req.body;
-    // const startTime = req.body.startTime;
-    const completeTime = new Date(Date.now())
+    const startTime = req.body.startTime;
+    const completeTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     const queryString = "INSERT INTO response (patientID, startTime, completeTime) VALUES (?, ?, ?)"
-    getConnection().query(queryString, [patientID, '2019-03-11 20:55:34', completeTime], (err, results, fields) => {
+    getConnection().query(queryString, [patientID, startTime, completeTime], (err, results, fields) => {
         if (err) {
             console.log("Failed to add to the database" + err);
             return;
@@ -115,9 +115,10 @@ router.post('/add_feedback', verifyToken, (req, res) => {
     const patientID = req.userData.userID;
     const data = req.body.data;
     const startTime = req.body.startTime;
-    const completeTime = Math.round(Date.now()/1000)
+    const completeTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     const queryString = "INSERT INTO feedbackresponse (patientID, startTime, completeTime) VALUES (?, ?, ?)"
-    getConnection().query(queryString, [patientID, '2019-02-17 20:55:34', completeTime], (err, results, fields) => {
+    console.log(patientID, startTime, completeTime, new Date())
+    getConnection().query(queryString, [patientID, startTime, completeTime], (err, results, fields) => {
         if (err) {
             console.log("Failed to add to the database" + err);
             return;

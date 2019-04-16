@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { AlertController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.page.html',
   styleUrls: ['./feedback.page.scss'],
+  providers: [DatePipe]
 })
 export class FeedbackPage implements OnInit {
 
-  currentDate:number = Date.now();
+  currentDate: number = Date.now();
   feedbackQuestion: any;
 
   constructor(
     private apiService: ApiService,
-    public alert: AlertController
+    public alert: AlertController,
+    private datePipe: DatePipe
 
   ) { }
 
@@ -49,7 +52,7 @@ export class FeedbackPage implements OnInit {
       }
     }
     
-    this.apiService.postAddFeedback({startTime: this.currentDate,data: this.feedbackQuestion})
+    this.apiService.postAddFeedback({startTime: this.datePipe.transform(this.currentDate, 'yyyy-MM-dd, HH:mm:ss'), data: this.feedbackQuestion})
     .subscribe(
       (data) => {
         this.displayAlert("Success", "Thank you for completing the feedback survey.")
