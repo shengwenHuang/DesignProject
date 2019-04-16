@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { AlertController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-survey',
   templateUrl: './survey.page.html',
   styleUrls: ['./survey.page.scss'],
+  providers: [DatePipe]
 })
 export class SurveyPage implements OnInit {
 
   all_question: any;
-  startTime:number;
+  currentTime: number = Date.now();
 
 
 
     
   constructor(
     private apiService: ApiService,
-    private alert: AlertController) {  }
+    private alert: AlertController,
+    private datePipe: DatePipe) {  }
 
   
 
@@ -28,7 +31,7 @@ export class SurveyPage implements OnInit {
       (err) => console.log(err)
     )
 
-    this.startTime = Math.round(Date.now()/1000)
+    
   }
   
   yes(pos: number) {
@@ -49,7 +52,7 @@ export class SurveyPage implements OnInit {
       }
     }
     
-    this.apiService.addSuvery(this.all_question)
+    this.apiService.addSuvery({startTime: this.datePipe.transform(this.currentTime, 'yyyy-MM-dd, HH:mm:ss'), data: this.all_question})
     .subscribe(
       data => this.displayAlert("Success", "Thank you for filling in the survey."),
       err => this.displayAlert("Something went wrong.", "Please try again later.")
