@@ -101,7 +101,27 @@ INSERT INTO `feedback` (`feedbackID`, `patientID`, `feedbackQuestionID`, `feedba
 (1, 2, 2, 4, NULL),
 (1, 2, 3, 5, NULL),
 (1, 2, 4, 4, NULL),
-(1, 2, 5, 4, NULL);
+(1, 2, 5, 4, NULL),
+(2, 3, 1, 5, NULL),
+(2, 3, 2, 4, NULL),
+(2, 3, 3, 5, NULL),
+(2, 3, 4, 4, NULL),
+(2, 3, 5, 4, NULL),
+(3, 4, 1, 5, NULL),
+(3, 4, 2, 4, NULL),
+(3, 4, 3, 5, NULL),
+(3, 4, 4, 4, NULL),
+(3, 4, 5, 4, NULL),
+(4, 6, 1, 5, NULL),
+(4, 6, 2, 4, NULL),
+(4, 6, 3, 5, NULL),
+(4, 6, 4, 4, NULL),
+(4, 6, 5, 4, NULL),
+(5, 8, 1, 5, NULL),
+(5, 8, 2, 4, NULL),
+(5, 8, 3, 5, NULL),
+(5, 8, 4, 4, NULL),
+(5, 8, 5, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -120,7 +140,7 @@ CREATE TABLE `feedbackQuestion` (
 
 INSERT INTO `feedbackQuestion` (`feedbackQuestionID`, `feedbackQuestion`) VALUES
 (1, 'You signed in using the self-check in kiosk and found it easy to use'),
-(2, 'You signed in using the self-check in kiosk and found it easy to use'),
+(2, 'The POAC waiting area was comfortable'),
 (3, 'You were kept informed and received all the information/instructions you needed'),
 (4, 'You were able to complete the screening questions on the iPad/mobile device'),
 (5, 'You would recommend our POAC service to friends and family');
@@ -143,7 +163,11 @@ CREATE TABLE `feedbackResponse` (
 --
 
 INSERT INTO `feedbackResponse` (`feedbackID`, `patientID`, `startTime`, `completeTime`) VALUES
-(1, 2, '2019-02-17 20:55:34', '2019-02-17 21:04:34');
+(1, 2, '2019-02-17 20:55:34', '2019-02-17 21:04:34'),
+(2, 3, '2019-02-18 20:55:34', '2019-02-18 21:04:34'),
+(3, 4, '2019-02-20 20:55:34', '2019-02-20 21:04:34'),
+(4, 6, '2019-02-22 20:55:34', '2019-02-22 21:04:34'),
+(5, 8, '2019-02-28 20:55:34', '2019-02-28 21:04:34');
 
 -- --------------------------------------------------------
 
@@ -153,7 +177,7 @@ INSERT INTO `feedbackResponse` (`feedbackID`, `patientID`, `startTime`, `complet
 
 CREATE TABLE `nhsUsers` (
   `userID` int(11) NOT NULL,
-  `staffNo` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `hashedPassword` varchar(100) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -167,17 +191,17 @@ CREATE TABLE `nhsUsers` (
 -- Dumping data for table `nhsUsers`
 --
 
-INSERT INTO `nhsUsers` (`userID`, `staffNo`, `hashedPassword`, `phone`, `email`, `firstname`, `lastname`, `userRoleID`, `statusID`) VALUES
-(1, '3933347548', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '756-269-2734', 'mmollitt0@example.com', 'Micaela', 'Mollitt', 2, 1),
-(2, '8100912831', '', '609-440-7441', 'switterick1@businessinsider.com', 'Saloma', 'Witterick', 2, 1),
-(3, '6629685733', '', '834-608-9619', 'habella2@wikia.com', 'Hervey', 'Abella', 2, 2),
-(4, '7360283221', '', '315-524-5255', 'mscotchmoor3@newsvine.com', 'Mariejeanne', 'Scotchmoor', 2, 1),
-(5, '7148701740', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '256-568-1848', 'mdayly4@stanford.edu', 'Mikael', 'Dayly', 1, 2),
-(6, '8382063896', '', '473-252-6717', 'gstickells5@tmall.com', 'Gaylor', 'Stickells', 1, 2),
-(7, '2232209121', '', '202-455-2877', 'dvallentine6@indiegogo.com', 'Devin', 'Vallentine', 1, 1),
-(8, '4125530513', '', '277-953-7636', 'finott7@vinaora.com', 'Fey', 'Inott', 2, 2),
-(9, '5095158213', '', '276-201-8464', 'lcolenutt8@china.com.cn', 'Leoine', 'Colenutt', 1, 2),
-(10, '7036931000', '', '281-868-7967', 'fleuty9@mac.com', 'Felike', 'Leuty', 2, 2);
+INSERT INTO `nhsUsers` (`userID`, `username`, `hashedPassword`, `phone`, `email`, `firstname`, `lastname`, `userRoleID`, `statusID`) VALUES
+(1, 'djuniper0', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456789', 'mmollitt0@example.com', 'Micaela', 'Mollitt', 1, 1),
+(2, 'adehooch1', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456780', 'switterick1@businessinsider.com', 'Saloma', 'Witterick', 2, 1),
+(3, 'mcloke2', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456781', 'habella2@wikia.com', 'Hervey', 'Abella', 2, 2),
+(4, 'bwillgoose3', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456782', 'mscotchmoor3@newsvine.com', 'Mariejeanne', 'Scotchmoor', 2, 1),
+(5, 'neckh4', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456783', 'mdayly4@stanford.edu', 'Mikael', 'Dayly', 1, 2),
+(6, 'tslocombe5', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456784', 'gstickells5@tmall.com', 'Gaylor', 'Stickells', 1, 2),
+(7, 'atoner6', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456785', 'dvallentine6@indiegogo.com', 'Devin', 'Vallentine', 1, 1),
+(8, 'gconers7', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456786', 'finott7@vinaora.com', 'Fey', 'Inott', 2, 2),
+(9, 'arembrandt8', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456787', 'lcolenutt8@china.com.cn', 'Leoine', 'Colenutt', 1, 2),
+(10, 'dgrayshon9', '$2b$10$.nTdltQzSa9m7aeLxbdlaeq8GpLI8rfSVygvF/JVvDZ52jBRXaDc6', '+447123456788', 'fleuty9@mac.com', 'Felike', 'Leuty', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -539,7 +563,7 @@ ALTER TABLE `feedbackResponse`
 --
 ALTER TABLE `nhsUsers`
   ADD PRIMARY KEY (`userID`),
-  ADD UNIQUE KEY `staffNo` (`staffNo`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD KEY `groupID` (`statusID`),
   ADD KEY `userRoleID` (`userRoleID`);
 
