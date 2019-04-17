@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Survey</ion-title>
+    <ion-title>Assessment</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,8 +13,26 @@
 
     <ion-card-content>
       <div *ngIf="q.type === 'yes/no'" style="text-align: center">
-        <ion-button color="primary" style="padding-right: 2em" (click)="yes(i)" >Yes</ion-button>
-        <ion-button color="danger" (click)="no(i)">No</ion-button>
+        <ion-radio-group>
+          <ion-row>
+            <ion-col>
+                <ion-item>
+                  <ion-label>Yes</ion-label>
+                  <ion-radio slot="start" (ionSelect)="yes(i)"></ion-radio>
+                </ion-item>
+            </ion-col>
+
+            <ion-col>
+                <ion-item>
+                  <ion-label>No</ion-label>
+                  <ion-radio slot="start" (ionSelect)="no(i)"></ion-radio>
+                </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+
+        <!-- <ion-button color="primary" style="padding-right: 2em" (click)="yes(i)" >Yes</ion-button>
+        <ion-button color="danger" (click)="no(i)">No</ion-button> -->
       </div>
       
       <ion-item *ngIf="q.type === 'free text'" style="margin: 5px">
