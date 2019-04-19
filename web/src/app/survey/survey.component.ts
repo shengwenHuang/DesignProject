@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { queueComponentIndexForCheck } from '@angular/core/src/render3/instructions';
 
 // interface ControlValueAccessor {  
 //   writeValue(obj: any): void
@@ -71,19 +72,15 @@ registerOnChange(fn) {
     // console.log("whole question object",this.q_obj)
     // console.log("is in array?",this.inArray(this.input_ID,this.q_obj))
     
-    var count = this.q_obj.length;
-    console.log("length of q_obj is", this.q_obj.length);
-    console.log("this.input_ID",this.input_ID);
-    for (var i = count - 1; i >= 0; i--){
-      console.log("this.q_obj[i].questionID for",i,"is",this.q_obj[i].questionID);
-      if (this.q_obj[i].questionID == this.input_ID) {
-        console.log("found a match to delete: i",i,"q_obj[i]",this.q_obj[i]);
-      await this.apiService.deleteQuestionApi(this.input_ID)
-      .toPromise().then(
-        data => this.q_obj.splice(i,1),
-        err => console.log(err))
-      }
-    }
+    // var count = this.q_obj.length;
+    // for (var i = count - 1; i >= 0; i--){
+    //   if (this.q_obj[i].questionID == this.input_ID) {
+    //   await this.apiService.deleteQuestionApi(this.input_ID)
+    //   .toPromise().then(
+    //     data => this.q_obj.splice(i,1),
+    //     err => console.log(err))
+    //   }
+    // }
 
     // var i = this.inArray(this.input_ID,this.q_obj)
     // console.log('the inner index is:',i)
@@ -138,16 +135,30 @@ registerOnChange(fn) {
   moveup(question: any): void {
     question.pos -= 1
     console.log(question.pos)
+    this.apiService.changePositionApi(question)
+    .subscribe(
+      data => (question.pos -= 1),
+      err => console.log(err))
   }
 
   movedown(question: any): void {
     question.pos += 1
     console.log(question.pos)
+    // this.apiService.changePositionApi(question)
+    // .subscribe(
+    //   data => (question.pos += 1),
+    //   err => console.log(err))
   }
 
   toggletype(question: any): void {
-    question.type == 'yes/no' ? question.type = 'free text' : question.type = 'yes/no', 
+    // this.apiService.toggleQuestionTypeApi(question.questionID)
+    // .subscribe(
+    //   data => question.type == 'yes/no' ? question.type = 'free text' : question.type = 'yes/no',
+    //   err => console.log(err))
+    //   question.type == 'yes/no' ? question.type = 'free text' : question.type = 'yes/no'
     console.log(question.type)
+    console.log("question",question)
+    console.log("object",this.q_obj)
   }
   
   filterBy(prop: string) {
