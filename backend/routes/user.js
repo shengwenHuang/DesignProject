@@ -67,62 +67,66 @@ router.post('/login', (req, res) => {
 
 router.post('/register', verifyToken, (req, res) => {
     const user = req.body;
-    const password = req.body.password;
-    console.log(user);
+    user.password = user.passwordGroup.password
+    delete user.passwordGroup;
 
-    return;
-    const queryCheckUser = `SELECT staffNo, description
+    const password = req.body.password;
+
+    const queryCheckUser = `SELECT username, description
     FROM nhsUsers
     INNER JOIN workingstatus on workingstatus.statusID = nhsUsers.statusID
-    where nhsUsers.staffNo = ?`
-    getConnection().query(queryCheckUser,[user.staffNo], (err, results, fields) => {
-
+    where nhsUsers.username = ?`
+    getConnection().query(queryCheckUser,[user.username], (err, results, fields) => {
+        
         if (err) {
-            return res.status(500).json({
+            return res.status(400).json({
                 error: err
             });
         };
 
         if (results.length >= 1) {
-            return res.status(409).json({
+            return res.status(400).json({
                 message: "This Nhs Staff is already registered",
                 description: results[0].description
             });
         }
 
-        user.password = hash;
-        if (user.Userrole === "Admin") {
+
+    
+        if (user.userRole === "Admin") {
             userRoleID = 1;
-        } if (user.Userrole === "NHS Staff") {
+        } else if (user.userRole === "NHS Staff") {
             userRoleID = 2;
         } else {
             return res.status(400).json({
                 message: "Invaid user role."
-            })
-        } {
-            userRoleID = 2;
+            });
         }
-
+        
+        
         bcrypt.hash(password, saltRounds, function(err, hash) {
 
             if (err) {
-                return res.status(500).json({
-                    error: err
+                return res.status(400).json({
+                    message: "Error"
                 });
             };
 
-            const queryString = "INSERT INTO nhsUsers (staffNo, hashedPassword, firstname, lastname, email, phone, userRoleID, statusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            const queryString = "INSERT INTO nhsUsers (username, hashedPassword, firstname, lastname, email, phone, userRoleID, statusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
-            console.log(user)
+            user.password = hash;
             const insert = [user.username, user.password, user.firstname, user.lastname, user.email, user.phone, userRoleID, 1]
+      
+        
             getConnection().query(queryString, insert, (err, results, fields) => {
                 if (err) {
-                    console.log("Failed to add an user." + err);
-                    res.sendStatus(500);
-                    return;
-                }
-                res.send("Success");
-                console.log("Success, you have added a new user into the database.");
+                    return res.status(400).json({
+                        message: "Error"
+                    });
+                };
+
+                res.status(200).json({
+                    message: "Account created."})
             })
 
           });
@@ -143,7 +147,6 @@ router.post('/remove_user', verifyToken, (req, res) => {
 
         if (results.length === 0) {
             console.log("NHS Staff does not exist.")
-            // res.status(401)
             return;
         }
         if (results[0].statusID === 2) {
@@ -176,7 +179,7 @@ router.get('/get_user', verifyToken, (req, res) => {
         })
     }
 
-    const queryString = `SELECT u.staffNo, u.firstname, u.lastname, u.email, u.phone, r.roleName, s.description
+    const queryString = `SELECT u.username, u.firstname, u.lastname, u.email, u.phone, r.roleName, s.description
     FROM nhsUsers AS u, userRole AS r, workingStatus AS s
     WHERE u.userRoleID = r.roleID 
     AND s.statusID = u.statusID
