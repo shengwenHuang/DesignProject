@@ -6,7 +6,7 @@ const pool = mysql.createPool({
     // host: "localhost",
     host: "http://poac.uksouth.cloudapp.azure.com"
     user: "root",
-    port: 3306,
+    port: 8889,
     password: "root",
     database: "survey",    
  

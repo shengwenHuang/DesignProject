@@ -4,12 +4,12 @@
   <div class="card">
     <div class="card-body">
         <form [formGroup]="registerForm" (ngSubmit)="add_user()">
-          <div class="form-group" [ngClass]="{'has-error':formErrors.staff_username}">
-            <label class="control-label" for="staff_username">Staff Username: </label>
-            <input id="staff_username" type="text" formControlName="staff_username" class="form-control" placeholder="Enter your username" 
+          <div class="form-group" [ngClass]="{'has-error':formErrors.username}">
+            <label class="control-label" for="username">Staff Username: </label>
+            <input id="username" type="text" formControlName="username" class="form-control" placeholder="Enter your username" 
             (blur)="logValidationErrors()">
-            <span class="help-block" *ngIf="formErrors.staff_username">
-              {{formErrors.staff_username}}
+            <span class="help-block" *ngIf="formErrors.username">
+              {{formErrors.username}}
             </span>
           </div>
           <div  formGroupName="passwordGroup">
@@ -80,9 +80,15 @@
             </span>
           </div>
 
+          <div *ngIf="invalid" class="alert alert-danger">{{invalid}}</div>
+          <div *ngIf="valid" class="alert alert-success">{{valid}}</div>
+
           <div class="container text-center" style="padding-top: 2em">
             <button class="btn btn-primary">Enter</button>
           </div>
+          
+          
+
         </form>
     </div>
   </div>
