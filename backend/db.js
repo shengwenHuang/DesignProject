@@ -3,10 +3,11 @@ const mysql = require('mysql');
 
 const pool = mysql.createPool({
     connectionLimit: 10,
-    // host: "localhost",
-    host: "http://poac.uksouth.cloudapp.azure.com",
-    user: "root",
-    port: 8889,
+    host: "localhost",
+    // host: "http://poac.uksouth.cloudapp.azure.com",
+    user: "Team-9-POAC",
+    // user: "root",
+    port: 3306,
     password: "root",
     database: "survey",    
  
