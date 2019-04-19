@@ -67,3 +67,5 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+web/SSHKey
+web/SSHKey.pub
