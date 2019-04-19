@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private loginURL = 'http://localhost:3000/app/login'
+  private loginURL = 'http://poac.uksouth.cloudapp.azure.com:3000/app/login'
   authenticationState = new BehaviorSubject(false);
 
 
