@@ -10,12 +10,13 @@ const verifyToken = require('../middleware/verify-token');
 
 
 router.post('/login', (req, res) => {
+    console.log(req.body)
     const user = req.body;
-    const staffNo = user.staffNo;
+    const username = user.username;
     const password = user.password;
-    const queryString = "SELECT staffNo, userID, hashedPassword, userRoleID, statusID, firstname FROM nhsUsers WHERE statusID=1 AND staffNo = ?";
+    const queryString = "SELECT username, userID, hashedPassword, userRoleID, statusID, firstname FROM nhsUsers WHERE statusID=1 AND username = ?";
 
-    getConnection().query(queryString, [staffNo], (err, results, fields) => {
+    getConnection().query(queryString, [username], (err, results, fields) => {
         if (err) {
             console.log("Failed to connect to the database." + err);
             return;
