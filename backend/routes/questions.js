@@ -62,7 +62,7 @@ router.get('/feedback_response', verifyToken, (req,res) => {
 
     
     const questionQueryString = `SELECT feedbackQuestionID, feedbackQuestion as Title
-    FROM feedbackquestion`
+    FROM feedbackQuestion`
 
     
     getConnection().query(questionQueryString, req.body, async (err, results, fields) => {
