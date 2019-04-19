@@ -252,7 +252,6 @@ router.get("/questions", verifyToken, (req, res) => {
             questions[i]["answers"] = ""
         }
 
-        console.log("yaaaiii")
         res.json(questions)
     });
 
