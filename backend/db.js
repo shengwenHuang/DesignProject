@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 10,
     // host: "localhost",
-    host: "http://poac.uksouth.cloudapp.azure.com"
+    host: "http://poac.uksouth.cloudapp.azure.com",
     user: "root",
     port: 8889,
     password: "root",
