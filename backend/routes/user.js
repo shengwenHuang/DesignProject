@@ -179,17 +179,17 @@ router.get('/get_user', verifyToken, (req, res) => {
         })
     }
 
-    const queryString = `SELECT u.username, u.firstname, u.lastname, u.email, u.phone, r.roleName, s.description
+    const queryString = `SELECT u.userID, u.username, u.firstname, u.lastname, u.email, u.phone, r.roleName, u.userRoleID, s.description
     FROM nhsUsers AS u, userRole AS r, workingStatus AS s
     WHERE u.userRoleID = r.roleID 
     AND s.statusID = u.statusID
-    ORDER BY u.userRoleID ASC, s.description ASC, u.lastname ASC`;
+    ORDER BY s.description ASC, u.userRoleID ASC, u.lastname ASC`;
     getConnection().query(queryString, (err, results, fields) => {
         if (err) {
             console.log("Failed to connect to the database." + err);
             return;
         }
-
+        console.log(results)
         res.json(results);
 
     })
@@ -198,7 +198,6 @@ router.get('/get_user', verifyToken, (req, res) => {
 
 // edit status of users
 router.post('/edit_user', verifyToken, (req, res) => {
-    console.log("in");
     const userID = req.body.userID;
     const userRoleID = req.body.userRoleID;
     console.log(userID);
