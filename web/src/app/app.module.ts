@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { PatientComponent } from './patient/patient.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SurveyComponent } from './survey/survey.component';
+import { SurveyresultsComponent } from './surveyresults/surveyresults.component';
 import { UserComponent } from './user/user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -35,6 +36,7 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     PatientComponent,
     FeedbackComponent,
     SurveyComponent,
+    SurveyresultsComponent,
     UserComponent,
     AddUserComponent,
     NavigationComponent,

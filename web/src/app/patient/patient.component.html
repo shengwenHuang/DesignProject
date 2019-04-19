@@ -19,7 +19,7 @@
             <label>Last Name: </label>
             <input type="text" formControlName="lastname" value="" placeholder="Last Name" class="form-control" />
             <div *ngIf="patientForm.get('lastname').invalid && (patientForm.get('lastname').dirty || patientForm.get('lastname').touched)" class="alert alert-warning">
-              Staff Number is required
+              Last name is required
             </div>
           </div>
           <div class = "button" >

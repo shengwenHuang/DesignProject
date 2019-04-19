@@ -10,12 +10,13 @@ const verifyToken = require('../middleware/verify-token');
 
 
 router.post('/login', (req, res) => {
+    console.log(req.body)
     const user = req.body;
-    const staffNo = user.staffNo;
+    const username = user.username;
     const password = user.password;
-    const queryString = "SELECT staffNo, userID, hashedPassword, userRoleID, statusID, firstname FROM nhsUsers WHERE statusID=1 AND staffNo = ?";
+    const queryString = "SELECT username, userID, hashedPassword, userRoleID, statusID, firstname FROM nhsUsers WHERE statusID=1 AND username = ?";
 
-    getConnection().query(queryString, [staffNo], (err, results, fields) => {
+    getConnection().query(queryString, [username], (err, results, fields) => {
         if (err) {
             console.log("Failed to connect to the database." + err);
             return;
@@ -66,62 +67,66 @@ router.post('/login', (req, res) => {
 
 router.post('/register', verifyToken, (req, res) => {
     const user = req.body;
-    const password = req.body.password;
-    console.log(user);
+    user.password = user.passwordGroup.password
+    delete user.passwordGroup;
 
-    return;
-    const queryCheckUser = `SELECT staffNo, description
+    const password = req.body.password;
+
+    const queryCheckUser = `SELECT username, description
     FROM nhsUsers
     INNER JOIN workingstatus on workingstatus.statusID = nhsUsers.statusID
-    where nhsUsers.staffNo = ?`
-    getConnection().query(queryCheckUser,[user.staffNo], (err, results, fields) => {
-
+    where nhsUsers.username = ?`
+    getConnection().query(queryCheckUser,[user.username], (err, results, fields) => {
+        
         if (err) {
-            return res.status(500).json({
+            return res.status(400).json({
                 error: err
             });
         };
 
         if (results.length >= 1) {
-            return res.status(409).json({
+            return res.status(400).json({
                 message: "This Nhs Staff is already registered",
                 description: results[0].description
             });
         }
 
-        user.password = hash;
-        if (user.Userrole === "Admin") {
+
+    
+        if (user.userRole === "Admin") {
             userRoleID = 1;
-        } if (user.Userrole === "NHS Staff") {
+        } else if (user.userRole === "NHS Staff") {
             userRoleID = 2;
         } else {
             return res.status(400).json({
                 message: "Invaid user role."
-            })
-        } {
-            userRoleID = 2;
+            });
         }
-
+        
+        
         bcrypt.hash(password, saltRounds, function(err, hash) {
 
             if (err) {
-                return res.status(500).json({
-                    error: err
+                return res.status(400).json({
+                    message: "Error"
                 });
             };
 
-            const queryString = "INSERT INTO nhsUsers (staffNo, hashedPassword, firstname, lastname, email, phone, userRoleID, statusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            const queryString = "INSERT INTO nhsUsers (username, hashedPassword, firstname, lastname, email, phone, userRoleID, statusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
-            console.log(user)
+            user.password = hash;
             const insert = [user.username, user.password, user.firstname, user.lastname, user.email, user.phone, userRoleID, 1]
+      
+        
             getConnection().query(queryString, insert, (err, results, fields) => {
                 if (err) {
-                    console.log("Failed to add an user." + err);
-                    res.sendStatus(500);
-                    return;
-                }
-                res.send("Success");
-                console.log("Success, you have added a new user into the database.");
+                    return res.status(400).json({
+                        message: "Error"
+                    });
+                };
+
+                res.status(200).json({
+                    message: "Account created."})
             })
 
           });
@@ -129,6 +134,41 @@ router.post('/register', verifyToken, (req, res) => {
     })
 
 })
+
+
+router.post('/remove_user', verifyToken, (req, res) => {
+    const userID = req.body.userID;
+    const queryString = "SELECT statusID FROM nhsUsers WHERE userID = ?";
+    getConnection().query(queryString, [userID], (err, results, fields) => {
+        if (err) {
+            console.log("Failed to connect to the database." + err);
+            return;
+        }
+
+        if (results.length === 0) {
+            console.log("NHS Staff does not exist.")
+            return;
+        }
+        if (results[0].statusID === 2) {
+            console.log("This is an ex-employee.");
+            return;
+        }
+
+        const removeQueryString = "UPDATE nhsUsers SET statusID = 2 WHERE userID = ?"
+        getConnection().query(removeQueryString, [userID], (err, results, fields) => {
+            if (err) {
+                console.log("Failed to connect to the database." + err);
+                return;
+            } else {
+                res.send("success");
+            }
+
+        })
+
+    })
+
+})
+
 
 // Get all the user
 router.get('/get_user', verifyToken, (req, res) => {
@@ -139,7 +179,7 @@ router.get('/get_user', verifyToken, (req, res) => {
         })
     }
 
-    const queryString = `SELECT u.userID, u.staffNo, u.firstname, u.lastname, u.email, u.phone, r.roleName, u.userRoleID, s.description
+    const queryString = `SELECT u.username, u.firstname, u.lastname, u.email, u.phone, r.roleName, s.description
     FROM nhsUsers AS u, userRole AS r, workingStatus AS s
     WHERE u.userRoleID = r.roleID 
     AND s.statusID = u.statusID
@@ -158,59 +198,29 @@ router.get('/get_user', verifyToken, (req, res) => {
 
 // edit status of users
 router.post('/edit_user', verifyToken, (req, res) => {
+    console.log("in");
     const userID = req.body.userID;
     const userRoleID = req.body.userRoleID;
-    var queryString = ''
+    console.log(userID);
+    queryString = ''
     if (userRoleID === 1) {
         queryString = `UPDATE nhsUsers SET userRoleID = 2 WHERE userID = ?`; //change to nurses
-        console.log("userRoleID = 1");
+        console.log("1");
     } else {
         queryString = `UPDATE nhsUsers SET userRoleID = 1 WHERE userID = ?`; //change to admin
-        console.log("userRoleID = 2");
+        console.log("2");
     }
-    getConnection().query(queryString, [userID], (err, results, fields) => {
-        if (err) {
-            return console.error("Failed to connect to the database." + err);
-        } 
-        console.log(results);
-    })
-
-})
-
-// make a user former worker
-router.post('/remove_user', verifyToken, (req, res) => {
-    const userID = req.body.userID;
-    console.log(userID);
-    const queryString = "SELECT statusID FROM nhsUsers WHERE userID = ?";
     getConnection().query(queryString, [userID], (err, results, fields) => {
         if (err) {
             console.log("Failed to connect to the database." + err);
             return;
-        }
-
-        if (results.length === 0) {
-            console.log("NHS Staff does not exist.")
-            // res.status(401)
-            return;
-        }
-        
-        // does not show the button if it's an ex-employee
-        // if (results[0].statusID === 2) {
-        //     console.log("This is an ex-employee.");
-        //     return;
-        // }
-
-        const removeQueryString = "UPDATE nhsUsers SET statusID = 2 WHERE userID = ?"
-        getConnection().query(removeQueryString, [userID], (err, results, fields) => {
-            if (err) {
-                console.log("Failed to connect to the database." + err);
-                return;
-            } 
-            console.log(results);
-        })
-
+        } 
+        console.log(results);
+        // res.send("success");
     })
 
 })
+
+
 
 module.exports = router;

@@ -52,7 +52,6 @@ export class UserComponent implements OnInit {
       data => this.u_obj = data,
       err => console.log(err)
     );
-    console.log(user);
   }
 }
 

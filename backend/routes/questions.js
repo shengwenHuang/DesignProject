@@ -6,7 +6,7 @@ const verifyToken = require('../middleware/verify-token');
 
 
 // Count number of yes and no
-router.get('/feedback_health_anws', (req,res) => {
+router.get('/assessment_ans', (req,res) => {
 
     
     const questionQueryString = `SELECT q.questionID, q.question, COUNT(a.answer) as yes
@@ -16,7 +16,7 @@ router.get('/feedback_health_anws', (req,res) => {
     ORDER BY q.questionID`
 
     
-    getConnection().query(questionQueryString, verifyToken, (err, results, fields) => {
+    getConnection().query(questionQueryString, (err, results, fields) => {
         
 
         if (err) {
@@ -196,11 +196,39 @@ router.post("/get_patient", (req, res) => {
 
 
 // Adding new questions
-router.post("/add_question", verifyToken, (req, res) => {
+router.post("/add_question", (req, res) => {
 
     const new_question = req.body
-    const queryString = "INSERT INTO question SET ? "
+    const new_ID = req.body.questionID
+// console.log("new_question", new_question)
+// console.log("new question ID", new_question.questionID)
+    const queryCheck = "SELECT * FROM question WHERE questionID = ?"
+    getConnection().query(queryCheck, new_ID, (err, results, fields) => {
+        if (err) {
+            console.log("Couldn't check for Dupes" + err);
+            res.sendStatus(500);
+            return;
+        }
+        console.log("results from checking query", results)
+        console.log("new_ID", new_ID)
+        console.log("results length", results.length, "results check:", (results.length > 0))
+        if (results.length > 0) {
+    //         //Delete the entry first:
+    //     const queryString = "DELETE FROM question WHERE questionID = ?"
+    //     getConnection().query(queryString, new_ID, (err, results, fields) => {
+    //     if (err) {
+    //         console.log("Failed to delete the question." + err);
+    //         return;
+    //     }
+    //     res.send();
+    //     console.log("Succesfully deleted the question.");
 
+    // })
+    
+        }
+    })
+
+    const queryString = "INSERT INTO question SET ? "
     getConnection().query(queryString, req.body, (err, results, fields) => {
         if (err) {
             console.log("Failed to add a new question." + err);
@@ -209,18 +237,29 @@ router.post("/add_question", verifyToken, (req, res) => {
         }
 
         // Just updating the json which was
+        // console.log("results", results)
+        // console.log("new_question", new_question)
+        // console.log("new question question ID", new_question.questionID)
+        // console.log("results.insertId", results.insertId)
+        // if (results.insertId != 0) {new_question.questionID = results.insertId}
         new_question.questionID = results.insertId
-
+        console.log("new question ID", new_question.questionID)
         res.send(new_question);
+        // res.send()
         console.log("Success, you have added a new question into the database.");
+        // route.reload 
     })
 })
 
-// Deleting quesiton
-router.get("/delete_question/:id", verifyToken, (req, res) => {
+// Deleting question
+router.get("/delete_question:id", (req, res) => {
+// router.post("/delete_question", (req, res) => {
 
-    const queryString = "DELETE FROM question WHERE questionID = ?"
-    getConnection().query(queryString, req.params.id, (err, results, fields) => {
+    // const delete_question = req.body
+        const queryString = "DELETE FROM question WHERE questionID = ?"
+        getConnection().query(queryString, req.params.id, (err, results, fields) => {
+        // getConnection().query(queryString, req.body, (err, results, fields) => {
+
         if (err) {
             console.log("Failed to delete the question." + err);
             return;
@@ -232,7 +271,7 @@ router.get("/delete_question/:id", verifyToken, (req, res) => {
 })
 
 // Obtain all the question
-router.get("/questions", verifyToken, (req, res) => {
+router.get("/questions", (req, res) => {
 
     const queryString = `SELECT questionID, question, questiontype.type, pos
     FROM question
@@ -252,12 +291,13 @@ router.get("/questions", verifyToken, (req, res) => {
             questions[i]["answers"] = ""
         }
 
-        console.log("yaaaiii")
         res.json(questions)
+        // console.log(questions)
+        // console.log(questions.length)
     });
 
 
 });
 
 
-module.exports = router;
+module.exports = router

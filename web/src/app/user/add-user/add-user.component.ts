@@ -10,10 +10,14 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AddUserComponent implements OnInit {
 
+
+  valid: string = "";
+  invalid:string = "";
+
   registerForm: FormGroup; 
 
   validationMessages = {
-    'staff_username': {
+    'username': {
       'required': 'Staff username is required.',
       'minlength': 'Staff username must be at least 6 characters.',
     },
@@ -46,7 +50,7 @@ export class AddUserComponent implements OnInit {
   };
 
   formErrors = {
-    'staff_username': '',
+    'username': '',
     'password': '',
     'confirm_password': '',
     'passwordGroup': '',
@@ -64,7 +68,7 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.fb.group({
 
-      staff_username: ['', [Validators.required, Validators.minLength(6)]],
+      username: ['', [Validators.required, Validators.minLength(6)]],
       passwordGroup: this.fb.group({
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirm_password: ['', Validators.required],
@@ -122,18 +126,14 @@ export class AddUserComponent implements OnInit {
 
   add_user() {
     this.logValidationErrors(this.registerForm);
-    console.log(this.formErrors);
     if (this.registerForm.invalid) {
-      alert("Please complete the form.");
+      this.invalid="Please enter all the fields."
       return;
     }
     this.apiService.register(this.registerForm.value)
     .subscribe(
-      (data) => console.log(data),
-      (err) => {
-        console.log(err),
-        alert("Something wrong :).");
-      }
+      (data:any) => {this.valid = data.message, this.invalid = ""},
+      (err) => {this.invalid = err.message, this.valid = ""}
     );
   }
 }

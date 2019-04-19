@@ -7,16 +7,9 @@
         height: calc(100% - 183px);
         top:183px;
     }
-    // #navbar-info.show{
-    //     transform: none !important;
-    // }
-    #navbar-transparent.navbar-collapse{
-        height: calc(100%);
-        top:0px;
+    #navbar-info.show{
+        transform: none !important;
     }
-    // #navbar-transparent.show{
-    //     transform: none !important;
-    // }
 }
 
 // hide the spinner button 
