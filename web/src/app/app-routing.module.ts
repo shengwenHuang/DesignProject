@@ -5,6 +5,7 @@ import { PatientComponent } from './patient/patient.component';
 import { LoginComponent } from './login/login.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SurveyComponent } from './survey/survey.component';
+import { SurveyresultsComponent } from './surveyresults/surveyresults.component';
 import { UserComponent } from './user/user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'patient', component: PatientComponent, canActivate: [AuthGuard]},
   {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuard]},
   {path: 'survey', component: SurveyComponent, canActivate:[AuthGuard]},
+  {path: 'surveyresults', component: SurveyresultsComponent, canActivate:[AuthGuard]},
   {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
   {path: 'user/add-user', component: AddUserComponent, canActivate: [AuthGuard]},
 

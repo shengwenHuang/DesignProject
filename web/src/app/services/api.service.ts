@@ -20,6 +20,7 @@ export class ApiService {
   private addapiUrl: string = 'http://localhost:3000/add_question';
   private deleteUrl: string = 'http://localhost:3000/delete_question';
   private feedbackUrl: string = 'http://localhost:3000/feedback_response'
+  private assessmentUrl: string = 'http://localhost:3000/assessment_ans'
 
 
   constructor(
@@ -39,8 +40,11 @@ export class ApiService {
     return this.http.get(this.feedbackUrl);
   }
 
-  addQuestionDbApi(obj: object) {
+  getAssessmentApi() {
+    return this.http.get(this.assessmentUrl);
+  }
 
+  addQuestionDbApi(obj: object) {
     return this.http.post(this.addapiUrl, obj);
   }
 
@@ -48,9 +52,14 @@ export class ApiService {
     return this.http.get(`${this.deleteUrl}${id}`);
   }
 
+  // deleteQuestionApi(obj: object) {
+  //   return this.http.post(`${this.deleteUrl}`);
+  // }
+
   get_user() {
     return this.http.get(this.getUserUrl)
-  } 
+  }
+
   login(user: object) {
     return this.http.post<any>(this.loginUrl, user);
   }

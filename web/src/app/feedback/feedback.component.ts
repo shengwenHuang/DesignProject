@@ -9,49 +9,84 @@ import { ApiService } from '../services/api.service';
 })
 
 export class FeedbackComponent implements OnInit {
-  responses: any = [];
+  feedback_obj: any = [];
 
-  // responses: any = [
-  //   {"Title": "You signed in using the self-check in kiosk and found it easy to use?", "A1": 50, "A2": 40 ,"A3": 30, "A4": 50, "A5": 20},
-  //   {"Title": "The POAC waiting area was comfortable", "A1": 32, "A2": 22 ,"A3": 32, "A4": 52, "A5": 62 },
-  //   {"Title": "You were kept informed and received all the information/instructions you needed", "A1": 65, "A2": 15 ,"A3": 35, "A4": 55, "A5": 45 },
-  //   {"Title": "You were able to complete the screening questions on the iPad/mobile device", "A1": 57, "A2": 27 ,"A3": 37, "A4": 27, "A5": 7},
-  //   {"Title": "You would recommend our POAC service to friends and family", "A1": 32, "A2": 22 ,"A3": 12, "A4": 52, "A5": 22 },
-  // ]
-
-
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService) { }
   
-    ngOnInit() {
-      this.apiService.getFeedbackApi()
-      .subscribe(
-        data => {this.responses = data},
-        err => console.log(err) 
-      ); 
+    async ngOnInit() {
+
+    }
+
+    async loadData() {
+
+      this.feedback_obj = await this.apiService.getFeedbackApi().toPromise();
+      // console.log('this.feedback_obj',this.feedback_obj)
+
     }
 
 
-    ngAfterViewInit() {
-      
+      // this.apiService.getFeedbackApi()
+      // .subscribe(
 
+      //  this.apiService.getFeedbackApi()
+      // .subscribe(
+      //   data => { this.feedback_obj = data,
+      //     console.log('inside',this.feedback_obj)},          
+      //     ),
+      //   // err => console.log(err));
+      //   console.log('outside',this.feedback_obj)
+      // }
+
+      // async loadData() {
+      // await this.apiService.getFeedbackApi()
+      //  .subscribe(
+      //   data => { this.feedback_obj = data,
+      //     console.log('inside',this.feedback_obj)},          
+      //     ),
+      //   // err => console.log(err));
+      //   console.log('outside',this.feedback_obj)
+      // }
+
+      // async loadData() {
+      //   this.feedback_obj = await this.apiService.getFeedbackApi().toPromise()
+      // }
+    
+    async ngAfterViewInit() {
+
+      await this.loadData()
+
+      console.log('feedback_obj length is', this.feedback_obj.length),
+      console.log(this.feedback_obj)
+
+      function delay(ms: number) {
+        return new Promise( resolve => setTimeout(resolve, ms) );
+    }
+    await delay(300);
+     
       var i = 0
-      for (i = 0; i < this.responses.length; i++) {
+      for (i = 0; i < this.feedback_obj.length; i++) {
+        console.log("i is ",i)
+        // console.log("object ",i," is ",this.feedback_obj[i])
+        // console.log("title for",i," is ",this.feedback_obj[i].Title)
 
-        var chart = new Chart(document.getElementById("chartContainer" + i), {
+
+          var chart = new Chart(document.getElementById("chartContainer" + i), {
+          // console.log("inside chart")
           type: "bar",
           fontSize: 15,
           data: {
-            labels: ["Strongly Disagree", "Disagree", "Neither", "Agree", "Strongly Agree"],
+            labels: ["S. Disagree", "Disagree", "Neither", "Agree", "S. Agree"],
             datasets: [
               {
                 label: "# of Respondent(s)",
                 fontSize: 10,
                 data: [
-                  this.responses[i].A1,
-                  this.responses[i].A2,
-                  this.responses[i].A3,
-                  this.responses[i].A4,
-                  this.responses[i].A5
+                  this.feedback_obj[i].A1,
+                  this.feedback_obj[i].A2,
+                  this.feedback_obj[i].A3,
+                  this.feedback_obj[i].A4,
+                  this.feedback_obj[i].A5,
+                  // console.log(this.feedback_obj[i].A5)
                 ],
                 backgroundColor: [
                   'rgba(255,   0,   0, 0.4)',
@@ -78,7 +113,7 @@ export class FeedbackComponent implements OnInit {
             scales: {
               xAxes: [{
                   ticks: {
-                      fontSize: 15,
+                      fontSize: 12,
                       fontStyle: "bold"
                   }
               }],
@@ -93,14 +128,14 @@ export class FeedbackComponent implements OnInit {
             legend: { display: false },
             title: {
               display: true,
-              text: this.responses[i].Title,
+              text: this.feedback_obj[i].Title,
               fontSize: 20
             }
           }
         });
-
+      
       }
-
+    
     }
 
   }
