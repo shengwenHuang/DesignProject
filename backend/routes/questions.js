@@ -103,8 +103,8 @@ router.get('/feedback_response', verifyToken, (req,res) => {
             answers = results[j].answer
 
             for (k = 0; k < answers.length; k++) {
-                
-                results[j][`A${results[k].feedbackQuestionID}`] = answers[k].Count
+
+                results[j][`A${answers[k].feedback}`] = answers[k].Count
             }
 
             delete results[j].answer;
