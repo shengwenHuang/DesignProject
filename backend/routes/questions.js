@@ -273,9 +273,9 @@ router.get("/delete_question:id", (req, res) => {
 // Obtain all the question
 router.get("/questions", (req, res) => {
 
-    const queryString = `SELECT questionID, question, questiontype.type, pos
+    const queryString = `SELECT questionID, question, questionType.type, pos
     FROM question
-    INNER JOIN questiontype ON question.type = questiontype.typeID
+    INNER JOIN questionType ON question.type = questionType.typeID
     ORDER BY pos ASC`
     getConnection().query(queryString, (err, results, fields) => {
         if  (err) {
