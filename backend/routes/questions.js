@@ -291,7 +291,6 @@ router.get("/questions", (req, res) => {
             questions[i]["answers"] = ""
         }
 
-        // console.log("yaaaiii")
         res.json(questions)
         // console.log(questions)
         // console.log(questions.length)
