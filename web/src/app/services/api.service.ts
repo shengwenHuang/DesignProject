@@ -9,18 +9,18 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class ApiService {
 
-  private loginUrl: string = 'http://localhost:3000/login';
-  private registerUrl: string = 'http://localhost:3000/register';
-  private removeUserUrl: string = 'http://localhost:3000/remove_user';
-  private editUserUrl: string = 'http://localhost:3000/edit_user';
-  private getUserUrl: string = 'http://localhost:3000/get_user';
-  private patientUrl: string = 'http://localhost:3000/get_patient';
+  private loginUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/login';
+  private registerUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/register';
+  private removeUserUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/remove_user';
+  private editUserUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/edit_user';
+  private getUserUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/get_user';
+  private patientUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/get_patient';
 
-  private getapiUrl: string = 'http://localhost:3000/questions';
-  private addapiUrl: string = 'http://localhost:3000/add_question';
-  private deleteUrl: string = 'http://localhost:3000/delete_question';
-  private feedbackUrl: string = 'http://localhost:3000/feedback_response'
-  private assessmentUrl: string = 'http://localhost:3000/assessment_ans'
+  private getapiUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/questions';
+  private addapiUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/add_question';
+  private deleteUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/delete_question';
+  private feedbackUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/feedback_response'
+  private assessmentUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/assessment_ans'
 
 
   constructor(
