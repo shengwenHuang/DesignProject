@@ -19,8 +19,27 @@ export class ApiService {
   private getapiUrl: string = 'http://localhost:3000/questions';
   private addapiUrl: string = 'http://localhost:3000/add_question';
   private deleteUrl: string = 'http://localhost:3000/delete_question';
-  private feedbackUrl: string = 'http://localhost:3000/feedback_response'
-  private assessmentUrl: string = 'http://localhost:3000/assessment_ans'
+  private feedbackUrl: string = 'http://localhost:3000/feedback_response';
+  private assessmentUrl: string = 'http://localhost:3000/assessment_ans';
+  private toggleUrl: string = 'http://localhost:3000/toggle_question';
+  private newPositionUrl: string = 'http://localhost:3000/new_position'
+
+
+  // private loginUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/login';
+  // private registerUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/register';
+  // private removeUserUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/remove_user';
+  // private editUserUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/edit_user';
+  // private getUserUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/get_user';
+  // private patientUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/get_patient';
+
+  // private getapiUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/questions';
+  // private addapiUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/add_question';
+  // private deleteUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/delete_question';
+  // private feedbackUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/feedback_response';
+  // private assessmentUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/assessment_ans';
+  // private toggleUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/toggle_question';
+    // private newPositionUrl: string = 'http://poac.uksouth.cloudapp.azure.com:3000/new_position';
+
 
 
   constructor(
@@ -50,6 +69,14 @@ export class ApiService {
 
   deleteQuestionApi(id: number) {
     return this.http.get(`${this.deleteUrl}${id}`);
+  }
+
+  toggleQuestionTypeApi(id: number) {
+    return this.http.get(`${this.toggleUrl}${id}`)
+  }
+
+  changePositionApi(obj: object) {
+    return this.http.get(this.newPositionUrl, obj)
   }
 
   // deleteQuestionApi(obj: object) {

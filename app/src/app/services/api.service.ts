@@ -15,6 +15,13 @@ export class ApiService {
   private patientHistoryUrl = 'http://localhost:3000/app/patient_history';
   private addSurveyUrl = 'http://localhost:3000/app/new_survey';
 
+  // private questionUrl = 'http://poac.uksouth.cloudapp.azure.com:3000/questions';
+  // private feedbackQuesUrl = 'http://poac.uksouth.cloudapp.azure.com:3000/app/feedback_ques';
+  // private addFeedbackUrl = 'http://poac.uksouth.cloudapp.azure.com:3000/app/add_feedback';
+  // private userInfoURL = 'http://poac.uksouth.cloudapp.azure.com:3000/app/patient_info';
+  // private patientHistoryUrl = 'http://poac.uksouth.cloudapp.azure.com:3000/app/patient_history';
+  // private addSurveyUrl = 'http://poac.uksouth.cloudapp.azure.com:3000/app/new_survey';
+
   constructor(private http: HttpClient) { }
 
   setCurrentHistory(history) {

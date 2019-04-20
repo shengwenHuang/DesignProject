@@ -3,7 +3,27 @@ const router = express.Router();
 const getConnection = require('../db')
 const verifyToken = require('../middleware/verify-token');
 
+// Update position
 
+router.get('/new_position', (req,res) => {
+    const question = req.body;
+    const pos = question.pos;
+    const questionID = question.questionID;
+    console.log("pos",pos)
+    const ChangePositionString = `UPDATE question SET question.pos = ? where question.questionID = ?`
+    getConnection().query(ChangePositionString, (err, [pos,questionID], fields) => {
+        if (err) {
+            console.log("Could not change position" + err);
+            return;
+        }
+        if (results.length === 0) {
+            res.send()
+            return;
+        }
+        
+    })
+}
+    );
 
 // Count number of yes and no
 router.get('/assessment_ans', (req,res) => {
@@ -62,7 +82,7 @@ router.get('/feedback_response', verifyToken, (req,res) => {
 
     
     const questionQueryString = `SELECT feedbackQuestionID, feedbackQuestion as Title
-    FROM feedbackquestion`
+    FROM feedbackQuestion`
 
     
     getConnection().query(questionQueryString, req.body, async (err, results, fields) => {
@@ -103,8 +123,8 @@ router.get('/feedback_response', verifyToken, (req,res) => {
             answers = results[j].answer
 
             for (k = 0; k < answers.length; k++) {
-                
-                results[j][`A${results[k].feedbackQuestionID}`] = answers[k].Count
+
+                results[j][`A${answers[k].feedback}`] = answers[k].Count
             }
 
             delete results[j].answer;
@@ -200,8 +220,7 @@ router.post("/add_question", (req, res) => {
 
     const new_question = req.body
     const new_ID = req.body.questionID
-// console.log("new_question", new_question)
-// console.log("new question ID", new_question.questionID)
+    console.log("req.body",req.body)
     const queryCheck = "SELECT * FROM question WHERE questionID = ?"
     getConnection().query(queryCheck, new_ID, (err, results, fields) => {
         if (err) {
@@ -209,26 +228,10 @@ router.post("/add_question", (req, res) => {
             res.sendStatus(500);
             return;
         }
-        console.log("results from checking query", results)
-        console.log("new_ID", new_ID)
-        console.log("results length", results.length, "results check:", (results.length > 0))
-        if (results.length > 0) {
-    //         //Delete the entry first:
-    //     const queryString = "DELETE FROM question WHERE questionID = ?"
-    //     getConnection().query(queryString, new_ID, (err, results, fields) => {
-    //     if (err) {
-    //         console.log("Failed to delete the question." + err);
-    //         return;
-    //     }
-    //     res.send();
-    //     console.log("Succesfully deleted the question.");
-
-    // })
-    
-        }
+        if (results.length > 0) {}
     })
 
-    const queryString = "INSERT INTO question SET ? "
+    const queryString = "REPLACE INTO question SET ?"
     getConnection().query(queryString, req.body, (err, results, fields) => {
         if (err) {
             console.log("Failed to add a new question." + err);
@@ -252,30 +255,45 @@ router.post("/add_question", (req, res) => {
 })
 
 // Deleting question
-router.get("/delete_question:id", (req, res) => {
+router.get("/toggle_question:id", (req, res) => {
 // router.post("/delete_question", (req, res) => {
 
     // const delete_question = req.body
-        const queryString = "DELETE FROM question WHERE questionID = ?"
+        const queryString = "UPDATE question SET type = (CASE type WHEN 1 THEN 2 ELSE 1 END) WHERE questionID = ?"
         getConnection().query(queryString, req.params.id, (err, results, fields) => {
-        // getConnection().query(queryString, req.body, (err, results, fields) => {
 
         if (err) {
-            console.log("Failed to delete the question." + err);
+            console.log("Failed to toggle the question." + err);
             return;
         }
         res.send();
-        console.log("Succesfully deleted the question.");
+        console.log("Succesfully toggled the question.");
 
     })
 })
 
+// Deleting question
+router.get("/delete_question:id", (req, res) => {
+            const queryString = "DELETE FROM question WHERE questionID = ?"
+            getConnection().query(queryString, req.params.id, (err, results, fields) => {
+            // getConnection().query(queryString, req.body, (err, results, fields) => {
+    
+            if (err) {
+                console.log("Failed to delete the question." + err);
+                return;
+            }
+            res.send();
+            console.log("Succesfully deleted the question.");
+    
+        })
+    })
+
 // Obtain all the question
 router.get("/questions", (req, res) => {
 
-    const queryString = `SELECT questionID, question, questiontype.type, pos
+    const queryString = `SELECT questionID, question, questionType.type, pos
     FROM question
-    INNER JOIN questiontype ON question.type = questiontype.typeID
+    INNER JOIN questionType ON question.type = questionType.typeID
     ORDER BY pos ASC`
     getConnection().query(queryString, (err, results, fields) => {
         if  (err) {

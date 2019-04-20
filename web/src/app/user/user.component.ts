@@ -38,14 +38,24 @@ export class UserComponent implements OnInit {
   }
 
   delete(user: any): void {
+    this.u_obj.splice(this.u_obj.indexOf(user), 1)
     this.apiService.remove_user(user)
     .subscribe(
-      data => this.u_obj = data,
+      data => {},
       err => console.log(err)
     );
   }
 
   edit_user(user: any): void {
+    var index = this.u_obj.indexOf(user)
+
+    if (this.u_obj[index].userRoleID === 1) {
+      this.u_obj[index].userRoleID = 2;
+    }
+    else {
+      this.u_obj[index].userRoleID = 1
+    }
+    
     this.apiService.edit_user(user)
     .subscribe(
       data => this.u_obj = data,
