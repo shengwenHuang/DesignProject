@@ -55,10 +55,10 @@ export class UserComponent implements OnInit {
     else {
       this.u_obj[index].userRoleID = 1
     }
-    
+
     this.apiService.edit_user(user)
     .subscribe(
-      data => this.u_obj = data,
+      data => {console.log("done")},
       err => console.log(err)
     );
   }

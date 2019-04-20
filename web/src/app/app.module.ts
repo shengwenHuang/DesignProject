@@ -24,8 +24,6 @@ import { AuthGuard } from './guard/auth.guard';
 
 
 import { AuthenticationService } from './services/authentication.service';
-import { ViewUserComponent } from './user/view-user/view-user.component';
-import { RemoveUserComponent } from './user/remove-user/remove-user.component';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 
 @NgModule({
@@ -40,8 +38,6 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     UserComponent,
     AddUserComponent,
     NavigationComponent,
-    ViewUserComponent,
-    RemoveUserComponent,
   ],
   imports: [
     BrowserModule,
