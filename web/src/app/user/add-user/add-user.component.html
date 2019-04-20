@@ -61,7 +61,7 @@
 
           <div class="form-group" [ngClass]="{'has-error':formErrors.phone}">
             <label class="control-label" for="phone">Mobile Number: </label>
-            <input id="phone" type="number" formControlName="phone" class="form-control" placeholder="Enter your mobile number" 
+            <input id="phone" type="tel" formControlName="phone" class="form-control" placeholder="Enter your mobile number" 
             (blur)="logValidationErrors()">
             <span class="help-block" *ngIf="formErrors.phone">
               {{formErrors.phone}}

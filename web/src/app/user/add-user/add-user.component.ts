@@ -76,8 +76,7 @@ export class AddUserComponent implements OnInit {
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      // phone: ['', [Validators.required, Validators.pattern('[+]447[0-9]{9}')]],
-      phone: ['', [Validators.required]],
+      phone: ['', [Validators.required, Validators.pattern('[+]447[0-9]{9}')]],
       userRole: ['', Validators.required],
     });
 
