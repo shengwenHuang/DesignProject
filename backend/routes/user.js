@@ -160,7 +160,9 @@ router.post('/remove_user', verifyToken, (req, res) => {
                 console.log("Failed to connect to the database." + err);
                 return;
             } else {
-                res.send("success");
+                console.log("remove");
+                return results;
+                // res.send("success");
             }
 
         })
@@ -189,7 +191,7 @@ router.get('/get_user', verifyToken, (req, res) => {
             console.log("Failed to connect to the database." + err);
             return;
         }
-        console.log(results)
+        // console.log(results)
         res.json(results);
 
     })
@@ -204,10 +206,10 @@ router.post('/edit_user', verifyToken, (req, res) => {
     queryString = ''
     if (userRoleID === 1) {
         queryString = `UPDATE nhsUsers SET userRoleID = 2 WHERE userID = ?`; //change to nurses
-        console.log("1");
+        console.log("userRoleID = 1");
     } else {
         queryString = `UPDATE nhsUsers SET userRoleID = 1 WHERE userID = ?`; //change to admin
-        console.log("2");
+        console.log("userRoleID = 2");
     }
     getConnection().query(queryString, [userID], (err, results, fields) => {
         if (err) {
