@@ -114,7 +114,9 @@ router.post('/add_feedback', verifyToken, (req, res) => {
     const patientID = req.userData.userID;
     const data = req.body.data;
     const startTime = req.body.startTime;
-    const completeTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    // const completeTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    var moment = require('moment-timezone');
+    const completeTime = moment.tz("Europe/London").format().slice(0, 19).replace('T', ' ');
     const queryString = "INSERT INTO feedbackresponse (patientID, startTime, completeTime) VALUES (?, ?, ?)"
     console.log(patientID, startTime, completeTime, new Date())
     getConnection().query(queryString, [patientID, startTime, completeTime], (err, results, fields) => {
