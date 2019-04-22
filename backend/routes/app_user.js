@@ -7,7 +7,7 @@ const verifyToken = require('../middleware/verify-token');
 router.post('/new_survey', verifyToken, (req, res) => {
 
     const patientID = req.userData.userID;
-    const data = req.body;
+    const data = req.body.data;
     const startTime = req.body.startTime;
     const completeTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     const queryString = "INSERT INTO response (patientID, startTime, completeTime) VALUES (?, ?, ?)"
@@ -22,10 +22,10 @@ router.post('/new_survey', verifyToken, (req, res) => {
 
         var i;
         for (i = 0; i < data.length; i++) {
+
             questionID = data[i].questionID;
             answer = data[i].answers;
             
-    
             getConnection().query(answersQuery, [responseID, patientID, questionID, answer], (err, results, fields) => {
                 if (err) {
                     console.log("Failed to add to the database" + err);
