@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
       },
       err => {
         if (err.status == 401) {
-          this.displayAlert("Login Falied", "Please try again")
+          this.displayAlert("Login Failed", "Please try again")
         }
       }
       
