@@ -12,7 +12,38 @@ import { DatePipe } from '@angular/common';
 export class FeedbackPage implements OnInit {
 
   currentDate: number = Date.now();
-  feedbackQuestion: any;
+  feedbackQuestion: any = [
+    {
+        "feedbackQuestionID": 1,
+        "feedbackQuestion": "You signed in using the self-check in kiosk and found it easy to use",
+        "pos": 0,
+        "feedback": ""
+    },
+    {
+        "feedbackQuestionID": 2,
+        "feedbackQuestion": "You signed in using the self-check in kiosk and found it easy to use",
+        "pos": 1,
+        "feedback": ""
+    },
+    {
+        "feedbackQuestionID": 3,
+        "feedbackQuestion": "You were kept informed and received all the information/instructions you needed",
+        "pos": 2,
+        "feedback": ""
+    },
+    {
+        "feedbackQuestionID": 4,
+        "feedbackQuestion": "You were able to complete the screening questions on the iPad/mobile device",
+        "pos": 3,
+        "feedback": ""
+    },
+    {
+        "feedbackQuestionID": 5,
+        "feedbackQuestion": "You would recommend our POAC service to friends and family",
+        "pos": 4,
+        "feedback": ""
+    }
+];
 
   constructor(
     private apiService: ApiService,
@@ -22,11 +53,11 @@ export class FeedbackPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.apiService.getFeedbackQues()
-    .subscribe(
-      (data) => this.feedbackQuestion = data,
-      (err) => console.log(err)
-    )
+    // this.apiService.getFeedbackQues()
+    // .subscribe(
+    //   (data) => this.feedbackQuestion = data,
+    //   (err) => console.log(err)
+    // )
   };
 
   // btnActivate(ionicButton) {
