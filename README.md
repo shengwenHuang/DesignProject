@@ -12,3 +12,6 @@ The project achieved all of the “Must Have” and “Should Have” requiremen
 
 
 Despite fulfilling the necessary requirements, our project does not, as yet, interface with the NHS records system MAXIMS, therefore further work is necessary to deploy the project to a live environment.
+
+
+The details of this project can be seen in COMP0067_2019_Team_9_POAC.pdf.
